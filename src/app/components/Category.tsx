@@ -9,64 +9,83 @@ interface CategoryProps {
 
 export default function Category({ title, onClick }: CategoryProps) {
   const textRef = useRef();
+
   const [scale, setScale] = useState(1);
   const [displayText, setDisplayText] = useState(title);
-  const MIN_SCALE = 0.7; // minimum scale factor
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+
+    }
+
+    window.addEventListener('resize',  handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+
   useEffect(() => {
     const el = textRef.current;
     if (!el) return;
 
+    // Remove any line breaks from displayText
+    // this might be added previously if rescaled
+    let cleanTitle = displayText.replace(/\n+/g, '');
 
-    // use dynamic scaling based on parent width
-    // and text width to ensure text fits within the card
-    const parentWidth = el.parentElement.offsetWidth;
-    const textWidth = el.scrollWidth;
-   
-
-    // If text width exceeds parent width, scale down
-    // to fit within the card, but don't scale smaller than 70%
-    if (textWidth > parentWidth) {
-      console.log(`Scaling text: "${title}" from ${textWidth} to ${parentWidth}`);
-      const newScale = parentWidth / textWidth * 0.9; // scale to 90% of parent width
-      setScale(Math.max(newScale, MIN_SCALE)); // ensure we don't scale down too much
-      console.log(`New scale: ${newScale}`);
-
-      // force break if text is too long
-      if (newScale < MIN_SCALE) {
-        const mid = Math.floor(title.length / 2);
-        const firstPart = title.slice(0, mid);
-        const secondPart = title.slice(mid);
-        setDisplayText(`${firstPart}\n${secondPart}`);
-      }
-    }  else   {
+    // // we have to render the text first to get its dimensions
+    if (cleanTitle !== displayText) {
+      console.log(`Updating displayText from "${displayText}" to "${cleanTitle}"`);
+      setDisplayText(cleanTitle);
       setScale(1);
-      setDisplayText(title); // reset to original title if no scaling needed
+      return; // wait for next render
     }
 
+    const parentWidth = el.parentElement.offsetWidth;
+    const parentHeight = el.parentElement.offsetHeight;
+    const textWidth = el.scrollWidth;
+    const textHeight = el.scrollHeight;
+    title = displayText; // use the current displayText for calculations
+    
 
-  }, [title]);
+    const wScale = parentWidth / textWidth * 0.85;
+    const hScale = parentHeight / textHeight * 0.9;
+    const newScale = Math.min(wScale, hScale);
+
+    if (textHeight >= parentHeight * 0.8) { // allow some padding  
+      setScale(newScale); 
+    } 
+    else if (textWidth >= parentWidth * 0.85) { // allow some padding
+      setScale(newScale); // ensure we don't scale down too much
+
+    } 
+
+  
+    
+
+  }, [title, windowSize]);
 
   return (
-    <Card elevation={8} sx={{
+    <Card elevation={8} 
+    sx={{
       onClick: {onClick},
-      width: {
-        xs: 50, // extra small screens
-        sm: 100,  // small screens
-        md: 140,  // medium+
-        lg: 225,  // medium+
-      },
-      height: {
-        xs: 50, // extra small screens
-        sm: 100,
-        md: 140,
-        lg: 225,  // medium+
-      },
+
+      aspectRatio: '1.3 / 1',  
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: 'primary.main', // dark indigo or any color
       flexDirection: 'column', // makes vertical stacking natural for text
       textAlign: 'center',
+      
     }}>
      
         <Typography gutterBottom ref={textRef} sx={{
@@ -88,10 +107,6 @@ export default function Category({ title, onClick }: CategoryProps) {
         }}>
           {displayText}
         </Typography>
-        <Typography variant="h5" component="div">
-
-        </Typography>
-
       {/* <CardActions>
         <Button size="small">Learn More</Button>
       </CardActions> */}
