@@ -43,6 +43,7 @@ export default function RootLayout({
             <Box
                 sx={{
                   bgcolor: '#2d2d2d', // dark indigo 
+                  // bgcolor: 'white', // dark mode background
                   minHeight: '100vh',
                   color: 'white',
                   px: 2,
