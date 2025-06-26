@@ -14,13 +14,12 @@ const style = {
     pt: 2,
     px: 4,
     pb: 3,
-    width: '80%',
     height: '80%',
+    aspectRatio: '1.3 / 1',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection:  'column',
-    border: 0
+    flexDirection: 'column',
 };
 
 
@@ -60,7 +59,7 @@ function ClueModal({ open, onClose, clue, image, video, response }:
                     </Box>
                     {image && !responseOpen && <Box
                         component="img"
-                  
+
                         alt=""
                         src={image}
                     />}
@@ -79,15 +78,17 @@ type ClueProps = {
     value: string;          // The dollar value of the clue
     image: string;
     video: string;
+    finalJeopardy?: string;
 }
-const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video }) => {
+const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJeopardy }) => {
     const [open, setOpen] = React.useState(false);
     const [active, setActive] = React.useState(true);
+
+
 
     const handleReveal = () => {
         setOpen(true);
         console.log(`Revealed clue: ${clue}`);
-        console.log(image == "");
     };
 
     const handleClose = () => {
@@ -108,6 +109,7 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video }) => {
             <Card
                 onClick={handleReveal}
                 sx={{
+                    marginTop: finalJeopardy ? "5rem" : "inherit",
                     backgroundColor: active ? 'primary.main' : 'primary.dark',
                     opacity: clue == null ? 0.5 : 1,
                     padding: 2,
@@ -119,14 +121,29 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video }) => {
                     fontSize: 'clamp(0.6rem, 2.6vw, 3.1rem)',
                 }}>
 
-                <Typography sx={{
-                    color: active ? '#ffc107' : 'primary.light',
+                {!finalJeopardy && <Typography sx={{
+                    color: active ? '#ffc107' : 'rgb(14,65,118)',
                     fontWeight: "bolder",
                     fontSize: "1em",
                     textShadow: active ? '3px 3px 0px rgba(0, 0, 0, 0.5)' : 'none',
                 }}>
                     {value}
-                </Typography>
+                </Typography>}
+
+                {finalJeopardy && <Typography
+                    sx={{
+                        fontSize: 'clamp(0.6rem, 3.2vw, 6.1rem)',
+                        fontWeight: 'bold',
+                        color: 'white',
+                        textAlign: 'center',
+                        lineHeight: 1.1,
+                        whiteSpace: 'normal',
+                        wordBreak: 'keep-all',
+                        overflowWrap: 'normal',
+                    }}
+                >
+                    {finalJeopardy}
+                </Typography>}
 
             </Card>
         </div>

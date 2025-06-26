@@ -38,6 +38,7 @@ export default function Category({ title, onClick, elevation }: CategoryProps) {
 
   const [scale, setScale] = useState(1);
   const [displayText, setDisplayText] = useState(title);
+  const [visible, setVisible] = useState(false);
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -63,6 +64,7 @@ export default function Category({ title, onClick, elevation }: CategoryProps) {
     const el = textRef.current;
     if (!el || !el.parentElement) return;
 
+      // el.style.visibility = 'hidden'; // Not display: none so we can measure it
 
     // wait for the next frame so we can get the real size
     // of the text
@@ -78,6 +80,11 @@ export default function Category({ title, onClick, elevation }: CategoryProps) {
       const newScale = Math.min(wScale, hScale, 1);
 
       setScale(newScale);
+       // Make visible next frame 
+       // (this prevents you seeing it scale)
+      requestAnimationFrame(() => {
+        setVisible(true);
+      });
     });
   }, [displayText, windowSize]);
 
@@ -105,8 +112,10 @@ export default function Category({ title, onClick, elevation }: CategoryProps) {
         {/* uses this box as a wrapper to 
         scale text evenly and fit the category */}
         <Box 
+       
           ref={textRef}
           sx={{
+            opacity: visible ? 1 : 0,
             transform: `scale(${scale})`,
             display: 'inline-block',
             width: 'auto',   

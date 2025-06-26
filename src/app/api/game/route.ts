@@ -2,16 +2,18 @@ import { NextResponse } from 'next/server';
 const Jeopardy = require('jeopardy-json');
 
 
-export async function GET(request: Request) {
- 
-  const url : URL = new URL(request.url);
-  let id = url.searchParams.get('id');
-  if (isNaN(Number(id)) || id == null) {
-    id = '1';
-  }
-  console.log('Fetching game with ID:',  id);
 
-  const data = await Jeopardy.getGame(id);
+export async function GET(request: Request) {
   
-  return NextResponse.json(data); 
+  const url : URL = new URL(request.url);
+  let showNum = url.searchParams.get('show');
+  if (isNaN(Number(showNum)) || showNum == null) {
+    showNum = '1';
+  }
+  console.log('Fetching show:',  showNum);
+
+  const game = await Jeopardy.getGameByShow(showNum);
+  console.log("GET REPSONSE" ,game)
+
+  return NextResponse.json(game); 
 }

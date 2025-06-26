@@ -1,8 +1,7 @@
 'use client';
 
-import { Button, Tabs, Tab, Container, Box  } from '@mui/material';
+import {  Grid, Skeleton, Paper, Tabs, Tab, Container, Box, Typography, InputBase } from '@mui/material';
 import React from 'react';
-import { Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import Category from './components/Category'
@@ -42,68 +41,167 @@ function transpose(obj) {
  */
 export default function BoardHeader() {
 
-
+  const [loading, setLoading] = useState(true);
   const [game, setGame] = useState(null);
-  const [round, setRound] = useState("double_jeopardy_round");
+  const [round, setRound] = useState("jeopardy_round");
+  const [show, setShow] = useState(1);
 
   // automatically update the game data when the component mounts
   useEffect(() => {
     async function fetchGame() {
-
+      setLoading(true);
       // use the rest API route to parse the game using jeopardy-json
-      const res = await fetch('/api/game'); 
+      const res = await fetch(`/api/game?show=${show}`); 
 
       const data = await res.json();
       console.log('Fetched game data:', data);
       setGame(data);  // store entire game
+      setRound("jeopardy_round");
+      setLoading(false);
+      
     }
 
     fetchGame();
-  }, []);
+  }, [show]);
 
+
+  console.warn("rendering", game);
 
   const categories = game?.[round] ? Object.keys(game[round]) : [];
   let values = game?.[round] ? Object.values(game[round]) : [];
+  let finalCat = "";
+  const GreyColour = "rgba(255,255,255,0.2)";
 
+  values = transpose(values).flat();
   
-  values = transpose(values).flat()
+  if (game && round === "final_jeopardy_round") {
+    if (!game[round]) {
+      console.error("need to handle missing final jeopardy");
+    }
+     values = [Object.values(game[round])[0]];
+     finalCat = Object.keys(game[round])[0];
+  }
+  
  
   return (
     <Container>
-   <Box sx={{
-       borderBottom: 2,
-       borderColor: '#3d3d3d'
-       
-      }}>
-     
-        <Tabs 
-          textColor='white'
-          indicatorColor="primary"
-          onChange={(e,val) => {
-          setRound(val);
-          }} 
-          value={round} >
-          <Tab label="Single Jeopardy!" value="jeopardy_round" />
-          <Tab label="Double Jeopardy!" value="double_jeopardy_round" />
-          <Tab label="Final Jeopardy!" value="final_jeopardy_round" />
-        </Tabs>
-      </Box>
+      <Box 
 
+      display="flex"
+      justifyContent="center"
+      alignItems="center">
+        <Typography variant="h1" sx={{
+          color: GreyColour,
+          fontWeight: "bolder",
+          marginBottom: "0.5rem"
+        }}>JEOPARDY!</Typography>
+
+      </Box>
       
+      <Paper sx={{bgcolor: "primary.main"}}>
+        <Box sx={{  }} display="flex" justifyContent="space-between" alignItems="center">
+          <Tabs 
+            textColor='white'
+            indicatorColor="primary"
+            onChange={(e,val) => {
+              setRound(val);
+            }} 
+            value={round} 
+            sx={{
+              '& .MuiTabs-indicator': {
+                height: '0px',
+              },
+              '& .MuiTab-root': {
+                color: 'rgba(14,65,118,1)',
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                textTransform: 'none',
+                transition: '0.3s',
+                
+                '&.Mui-selected': {
+                  color: '#fff',
+                  backgroundColor: "rgba(255, 255, 255, 0.2)"
+                },
+                '&:hover': {
+                  color: '#fff',
+                  backgroundColor: "rgba(255, 255, 255, 0.1)"
+                
+                },
+              },
+            }}>
+            <Tab sx={{  minWidth: 200}} label="Single" value="jeopardy_round" />
+            <Tab sx={{  minWidth: 200}} label="Double" value="double_jeopardy_round" />
+            <Tab sx={{  minWidth: 200}} label="Final" value="final_jeopardy_round" />
+          </Tabs>
+          <Paper
+            component="form"
+            sx={{ p: '2px 4px', margin: "2px 8px", display: 'flex', alignItems: 'center', width: "10rem" }}
+          >
+            <InputBase
+              sx={{ ml: 1 }}
+              placeholder="Show Number"
+              inputProps={{ 'aria-label': 'search google maps' }}
+              defaultValue={show}
+              onKeyDown={(event) => {
+                if (event.key !== "Enter") return;
+                event.preventDefault();
+                // make sure its a number
+                const newValue = event.target.value;
+                if (!isNaN(newValue)) {
+
+                  setShow(newValue);
+                }
+              }}
+            />
+          </Paper>
+        </Box>
+
+      </Paper>
+
+      {loading &&
+        <Grid container spacing={2} columns={6} justifyContent="center">
+          { 
+            Array.from({ length: 36 }).map((_, i) => 
+              <Grid key={i} spacing={2} size={1} sx={{ border: 0, marginTop: "1em"}}>
+          
+                <Skeleton
+                  variant="rectangular"
+                  width="100%"
+                  height="100%"
+                
+                  sx={{  
+                    bgcolor: "grey.800",
+                    aspectRatio: '1.3 / 1',
+                    textAlign: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                />
+            
+              </Grid>
+          
+            )
+          }
+           
+        </Grid>}
+   
+      { loading == false && 
       <Grid container columns={6} spacing={2} sx={{ border: 0, margin: "4em auto", marginTop: "1em"}} justifyContent="center">
         {
+
+          round !== "final_jeopardy_round" && 
           categories.map((cat, index) => (
 
-            <Grid size={1} key={cat}  >
-              <Category elevation={index + 2} title={cat} />
-            </Grid>
+            <Grid size={1} key={cat}><Category elevation={index + 2} title={cat} /></Grid>
           ))
         }
 
         {values.map((clueObject: any, i) =>
-          <Grid key={i} spacing={2} size={1} >
+          <Grid key={i} spacing={2} size={round !== "final_jeopardy_round" ? 1 : 3} >
             <Clue
-              {...clueObject} // the entire clue to our modal
+              finalJeopardy={finalCat}
+              {...clueObject}  
               // if the clue is missing style it inactive
               data-active={clueObject.clue ? '' : undefined}
 
@@ -112,8 +210,8 @@ export default function BoardHeader() {
           </Grid>
         )}
       </Grid>
-
-     
+       }
     </Container>
   );
 }
+
