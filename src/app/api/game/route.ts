@@ -10,10 +10,6 @@ export async function GET(request: Request) {
   if (isNaN(Number(showNum)) || showNum == null) {
     showNum = '1';
   }
-  console.log('Fetching show:',  showNum);
-
   const game = await Jeopardy.getGameByShow(showNum);
-  console.log("GET REPSONSE" ,game)
-
   return NextResponse.json(game); 
 }

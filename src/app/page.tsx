@@ -117,10 +117,15 @@ export default function BoardHeader() {
                 fontSize: '1rem',
                 textTransform: 'none',
                 transition: '0.3s',
-                
+                borderLeft: "0.02rem outset #1565c022",
+                borderRight: "0.02rem outset #1565c022",
+                borderTop: "none",
+                borderBottom: "none",
+
                 '&.Mui-selected': {
                   color: '#fff',
-                  backgroundColor: "rgba(255, 255, 255, 0.2)"
+                  backgroundColor: "rgba(0, 0, 0, 0.2)",
+                  boxShadow: 'inset 0px 4px 4px rgba(0, 0, 0, 0.2)' 
                 },
                 '&:hover': {
                   color: '#fff',
@@ -203,7 +208,7 @@ export default function BoardHeader() {
               finalJeopardy={finalCat}
               {...clueObject}  
               // if the clue is missing style it inactive
-              data-active={clueObject.clue ? '' : undefined}
+              data-active={clueObject.clue ? true : false}
 
               onReveal={() => console.log(`Revealed clue: ${x.question}`)}
             />

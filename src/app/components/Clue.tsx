@@ -87,6 +87,9 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
 
 
     const handleReveal = () => {
+        if (!clue) {
+            return;
+        }
         setOpen(true);
         console.log(`Revealed clue: ${clue}`);
     };
@@ -106,12 +109,15 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
                 {...{ clue, response, image, video }}
             >
             </ClueModal>
+
+            {/* if clue and active this mean that card is clickable
+                if there is no clue then the question was never recoreded */}
             <Card
                 onClick={handleReveal}
                 sx={{
                     marginTop: finalJeopardy ? "5rem" : "inherit",
-                    backgroundColor: active ? 'primary.main' : 'primary.dark',
-                    opacity: clue == null ? 0.5 : 1,
+                    backgroundColor: clue && active ? 'primary.main' : 'primary.dark',
+                    // boxShadow: clue && !active ? 'inset 0px 1px 4px rgba(0, 0, 0, 0.4)' : "none",
                     padding: 2,
                     aspectRatio: '1.3 / 1',
                     textAlign: 'center',
@@ -122,10 +128,11 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
                 }}>
 
                 {!finalJeopardy && <Typography sx={{
-                    color: active ? '#ffc107' : 'rgb(14,65,118)',
+                    color: clue && active ? '#ffc107' : 'rgb(14,65,118)',
+                    opacity: !clue ? 0.1 : 1,
                     fontWeight: "bolder",
                     fontSize: "1em",
-                    textShadow: active ? '3px 3px 0px rgba(0, 0, 0, 0.5)' : 'none',
+                    textShadow: clue && active ? '3px 3px 0px rgba(0, 0, 0, 0.5)' : 'none',
                 }}>
                     {value}
                 </Typography>}
