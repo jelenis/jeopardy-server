@@ -92,23 +92,21 @@ export default function Category({ title, onClick, elevation }: CategoryProps) {
     <Paper
       elevation={elevation}
       sx={{
-        aspectRatio: '1.3 / 1',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'primary.main',
-        overflow: 'hidden',
+        width: '100%',
+    height: '100%',
+    aspectRatio: '1.3 / 1',
+    maxWidth: '100%',
+    maxHeight: '100%',
+    overflow: 'hidden',
+    boxSizing: 'border-box',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'primary.main',
+  
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '100%',
-          height: '100%',
-        }}
-      >
+
         {/* uses this box as a wrapper to 
         scale text evenly and fit the category */}
         <Box 
@@ -119,7 +117,7 @@ export default function Category({ title, onClick, elevation }: CategoryProps) {
             transform: `scale(${scale})`,
             display: 'inline-block',
             width: 'auto',   
-            padding: 1,
+            // padding: 1,
           }}
         >
           <Typography
@@ -137,7 +135,6 @@ export default function Category({ title, onClick, elevation }: CategoryProps) {
             {displayText}
           </Typography>
         </Box>
-      </Box>
     </Paper>
   );
 }

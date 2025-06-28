@@ -100,8 +100,11 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
     };
 
     return (
-        <div style={{
+        <Box style={{
             cursor: active ? 'pointer' : 'context-menu',
+            width: "100%",
+            height: "100%",
+            aspectRatio: "1/1.2"
         }}>
             <ClueModal
                 open={open}
@@ -112,14 +115,14 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
 
             {/* if clue and active this mean that card is clickable
                 if there is no clue then the question was never recoreded */}
-            <Card
+            <Box
                 onClick={handleReveal}
                 sx={{
-                    marginTop: finalJeopardy ? "5rem" : "inherit",
+                    // marginTop: finalJeopardy ? "5rem" : "inherit",
                     backgroundColor: clue && active ? 'primary.main' : 'primary.dark',
-                    // boxShadow: clue && !active ? 'inset 0px 1px 4px rgba(0, 0, 0, 0.4)' : "none",
                     padding: 2,
-                    aspectRatio: '1.3 / 1',
+                    height: "100%",
+                    width: finalJeopardy ? "50%":'100%',
                     textAlign: 'center',
                     display: 'flex',
                     alignItems: 'center',
@@ -152,8 +155,8 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
                     {finalJeopardy}
                 </Typography>}
 
-            </Card>
-        </div>
+            </Box>
+        </Box>
     );
 };
 
