@@ -94,7 +94,6 @@ export default function Category({ title, onClick, elevation }: CategoryProps) {
       sx={{
         width: '100%',
     height: '100%',
-    aspectRatio: '1.3 / 1',
     maxWidth: '100%',
     maxHeight: '100%',
     overflow: 'hidden',

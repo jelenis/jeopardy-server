@@ -104,7 +104,7 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
             cursor: active ? 'pointer' : 'context-menu',
             width: "100%",
             height: "100%",
-            aspectRatio: "1/1.2"
+            // aspectRatio: "1/1.2"
         }}>
             <ClueModal
                 open={open}
