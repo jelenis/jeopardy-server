@@ -17,6 +17,29 @@ function transpose(obj) {
     return acc;
   }, [] as any[]);
 }
+
+// 1. Define the shape of each clue object
+ interface ClueItem {
+  clue: string | null;     
+  response: string | null; 
+  value: string;
+  dd: boolean;
+  image: string;
+  video: string;
+  row: number;
+  column: number;
+}
+
+// 2. Define RoundType as an array of those items
+type RoundType = ClueItem[];
+
+interface Game {
+  jeopardy_round:       RoundType;
+  double_jeopardy_round: RoundType;
+  final_jeopardy_round:   RoundType;
+}
+
+
 /**
  * BoardHeader component displays the game board header for a Jeopardy-style game.
  *
@@ -34,7 +57,7 @@ function transpose(obj) {
  */
 export default function BoardHeader() {
   const [loading, setLoading] = useState(true);
-  const [game, setGame] = useState<any>(null);
+  const [game, setGame] = useState<Game | null>(null);
   const [round, setRound] = useState<'jeopardy_round' | 'double_jeopardy_round' | 'final_jeopardy_round'>('jeopardy_round');
   const [show, setShow] = useState(1);
 
@@ -52,15 +75,17 @@ export default function BoardHeader() {
   }, [show]);
 
   const categories = game?.[round] ? Object.keys(game[round]) : [];
-  let values : ClueProps[] = game?.[round] ? Object.values(game[round]) : [];
+  let values : ClueProps[] = game?.[round] ? Object.values(game[round]) : [] as RoundType;
   let finalCat = '';
+  let finalValue : ClueProps | null = null;
   const GreyColour = 'rgba(255,255,255,0.2)';
-  const clueRows = round === 'final_jeopardy_round' ? 1 : 5;
+  const clueRows = (round === 'final_jeopardy_round') ? 1 : 5;
 
   values = transpose(values).flat() as ClueProps[];
   if (game && round === 'final_jeopardy_round') {
     // assert unknown becuase library output might change in future
-    // values = Object.values(game[round])[0];
+    let finalRound = Object.values(game[round]) as RoundType;
+    finalValue = finalRound[0]
     finalCat = Object.keys(game[round])[0];
   }
 
@@ -223,13 +248,13 @@ export default function BoardHeader() {
       boxSizing:  'border-box',
     }}
   >
-    {loading 
+    {loading || !finalValue
       ? <Skeleton variant="rectangular" width="100%" height="100%" animation="wave" /> 
-      : <Clue {...values[0]} finalJeopardy={finalCat} />
+      : <Clue {...finalValue} finalJeopardy={finalCat} />
     }
   </Box>
 ) : (
-  /* SINGLE OR DOUBLE JEOPARDY: */
+  /* SINGLE OR DOUBLE JEOPARDY: fill with empty skeleton if still loading */
   (loading ? Array(clueRows * 6).fill(null) : values).map((clueObj, idx) => {
     const row = Math.floor(idx / 6) + 2;
     const col = (idx % 6) + 1;

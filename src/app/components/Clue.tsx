@@ -85,7 +85,7 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
     const [open, setOpen] = React.useState(false);
     const [active, setActive] = React.useState(true);
 
-
+    
 
     const handleReveal = () => {
         if (!clue) {
