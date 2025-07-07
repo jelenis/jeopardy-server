@@ -33,8 +33,8 @@ interface CategoryProps {
  * - Uses a `ref` to measure the text size and scales it to fit the parent container.
  * - Listens to window resize events to recalculate scaling.
  */
-export default function Category({ title, onClick, elevation }: CategoryProps) {
-  const textRef = useRef();
+export default function Category({ title, elevation }: CategoryProps) {
+  const textRef = useRef<HTMLDivElement>(null);
 
   const [scale, setScale] = useState(1);
   const [displayText, setDisplayText] = useState(title);
@@ -64,12 +64,11 @@ export default function Category({ title, onClick, elevation }: CategoryProps) {
     const el = textRef.current;
     if (!el || !el.parentElement) return;
 
-      // el.style.visibility = 'hidden'; // Not display: none so we can measure it
-
     // wait for the next frame so we can get the real size
     // of the text
     requestAnimationFrame(() => {
       const parent = el.parentElement;
+      if (!parent) return;
       const textWidth = el.scrollWidth;
       const textHeight = el.scrollHeight;
       const parentWidth = parent.offsetWidth;

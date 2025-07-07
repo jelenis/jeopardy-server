@@ -24,10 +24,10 @@ const style = {
 };
 
 
-function ClueModal({ open, onClose, clue, image, video, response }:
-    { open: boolean; onClose: () => void; clue: string; response: string }) {
-    const [responseOpen, setResponseOpen] = React.useState(false);
-
+function ClueModal({ open, onClose, clue, image, response, video }:
+    { open: boolean; onClose: () => void; clue: string | null; response: string | null; image: string; video: string }) {
+    
+        const [responseOpen, setResponseOpen] = React.useState(false);
     const handleClick = () => {
         if (!responseOpen) {
             setResponseOpen(true);
@@ -73,10 +73,10 @@ function ClueModal({ open, onClose, clue, image, video, response }:
     );
 }
 
-type ClueProps = {
-    clue: string | null;    // The clue text
+export type ClueProps = {
+    clue: string | null;     // The clue text
     response: string | null; // The answer to the clue
-    value: string;          // The dollar value of the clue
+    value: string;           // The dollar value of the clue
     image: string;
     video: string;
     finalJeopardy?: string;

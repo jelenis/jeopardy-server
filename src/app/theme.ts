@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {
-    cssVariables: true,
+    // cssVariables: true,
     fontFamily: 'var(--font-roboto)',
   },
 });

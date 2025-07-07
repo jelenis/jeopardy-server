@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Skeleton, Paper, Tabs, Tab, Container, Box, Typography, InputBase, InputAdornment } from '@mui/material';
 import Category from './components/Category';
-import Clue from './components/Clue';
+import Clue, { ClueProps } from './components/Clue';
 
 //@ts-ignore
 function transpose(obj) {
@@ -52,14 +52,15 @@ export default function BoardHeader() {
   }, [show]);
 
   const categories = game?.[round] ? Object.keys(game[round]) : [];
-  let values = game?.[round] ? Object.values(game[round]) : [];
+  let values : ClueProps[] = game?.[round] ? Object.values(game[round]) : [];
   let finalCat = '';
   const GreyColour = 'rgba(255,255,255,0.2)';
   const clueRows = round === 'final_jeopardy_round' ? 1 : 5;
 
-  values = transpose(values).flat();
+  values = transpose(values).flat() as ClueProps[];
   if (game && round === 'final_jeopardy_round') {
-    values = Object.values(game[round])[0];
+    // assert unknown becuase library output might change in future
+    // values = Object.values(game[round])[0];
     finalCat = Object.keys(game[round])[0];
   }
 
@@ -78,7 +79,7 @@ export default function BoardHeader() {
         alignItems: "center"
       }}>
         <Box sx={{
-                    width: `min(100%, 100vh)`,
+          width: `min(100%, 100vh)`,
           aspectRatio: `1.3 / 1`,
           overflow: 'hidden',
 
@@ -157,14 +158,13 @@ export default function BoardHeader() {
                       Game #
                     </InputAdornment>
                   }
-                  onKeyDown={(event) => {
+                  onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
                     if (event.key !== "Enter") return;
                     event.preventDefault();
-                    // make sure its a number
-                    const newValue = event.target.value;
-                    if (!isNaN(newValue)) {
-
-                      setShow(newValue);
+                    // make sure its a number before submitting
+                    const newValue = (event.target as HTMLInputElement).value;
+                    if (!isNaN(Number(newValue))) {
+                      setShow(Number(newValue));
                     }
                   }}
                 />
@@ -225,7 +225,7 @@ export default function BoardHeader() {
   >
     {loading 
       ? <Skeleton variant="rectangular" width="100%" height="100%" animation="wave" /> 
-      : <Clue {...values} finalJeopardy={finalCat} />
+      : <Clue {...values[0]} finalJeopardy={finalCat} />
     }
   </Box>
 ) : (
