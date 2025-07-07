@@ -20,6 +20,7 @@ const style = {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
+    outline: 'none',
 };
 
 
@@ -104,7 +105,6 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
             cursor: active ? 'pointer' : 'context-menu',
             width: "100%",
             height: "100%",
-            // aspectRatio: "1/1.2"
         }}>
             <ClueModal
                 open={open}
@@ -122,7 +122,7 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
                     backgroundColor: clue && active ? 'primary.main' : 'primary.dark',
                     padding: 2,
                     height: "100%",
-                    width: finalJeopardy ? "50%":'100%',
+                    width: '100%',
                     textAlign: 'center',
                     display: 'flex',
                     alignItems: 'center',
@@ -142,7 +142,7 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
 
                 {finalJeopardy && <Typography
                     sx={{
-                        fontSize: 'clamp(0.6rem, 3.2vw, 6.1rem)',
+                        fontSize: 'clamp(0.6rem, 2.2vw, 4.1rem)',
                         fontWeight: 'bold',
                         color: 'white',
                         textAlign: 'center',
