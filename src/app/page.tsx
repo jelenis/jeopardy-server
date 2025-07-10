@@ -19,9 +19,9 @@ function transpose(obj) {
 }
 
 // 1. Define the shape of each clue object
- interface ClueItem {
-  clue: string | null;     
-  response: string | null; 
+interface ClueItem {
+  clue: string | null;
+  response: string | null;
   value: string;
   dd: boolean;
   image: string;
@@ -34,9 +34,9 @@ function transpose(obj) {
 type RoundType = ClueItem[];
 
 interface Game {
-  jeopardy_round:       RoundType;
+  jeopardy_round: RoundType;
   double_jeopardy_round: RoundType;
-  final_jeopardy_round:   RoundType;
+  final_jeopardy_round: RoundType;
 }
 
 
@@ -75,9 +75,9 @@ export default function BoardHeader() {
   }, [show]);
 
   const categories = game?.[round] ? Object.keys(game[round]) : [];
-  let values : ClueProps[] = game?.[round] ? Object.values(game[round]) : [] as RoundType;
+  let values: ClueProps[] = game?.[round] ? Object.values(game[round]) : [] as RoundType;
   let finalCat = '';
-  let finalValue : ClueProps | null = null;
+  let finalValue: ClueProps | null = null;
   const GreyColour = 'rgba(255,255,255,0.2)';
   const clueRows = (round === 'final_jeopardy_round') ? 1 : 5;
 
@@ -91,10 +91,13 @@ export default function BoardHeader() {
 
   return (
     <Container sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100vh', // span full viewport height
-      }}>
+
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      overflow: 'hidden',
+      padding: 0,
+    }}>
       {/* This Box acts as the main container for the board and header, filling the entire width and height.
        It enables the grid to scale responsively with the screen size.*/}
       <Box sx={{
@@ -103,18 +106,6 @@ export default function BoardHeader() {
         height: '100vh',
         alignItems: "center"
       }}>
-        <Box sx={{
-          width: `min(100%, 100vh)`,
-          aspectRatio: `1.3 / 1`,
-          overflow: 'hidden',
-
-          // use flex to stack header / tabs / board
-          display: 'flex',
-          flexDirection: 'column',
-          height: "100vh"
-        }}>
-
-     
 
         {/* -------------- Header -------------- */}
         <Box
@@ -124,7 +115,8 @@ export default function BoardHeader() {
           <Typography variant="h1" sx={{
             color: GreyColour,
             fontWeight: "bolder",
-            paddingBottom: "2rem"
+            paddingBottom: "2rem",
+            fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '5rem' },
           }}>JEOPARDY!</Typography>
 
         </Box>
@@ -164,12 +156,12 @@ export default function BoardHeader() {
                     },
                   },
                 }}>
-                <Tab sx={{ minWidth: 200 }} label="Single" value="jeopardy_round" />
-                <Tab sx={{ minWidth: 200 }} label="Double" value="double_jeopardy_round" />
-                <Tab sx={{ minWidth: 200 }} label="Final" value="final_jeopardy_round" />
+                <Tab sx={{ minWidth: { sm: 50, lg: 100 } }} label="Single" value="jeopardy_round" />
+                <Tab sx={{ minWidth: { sm: 50, lg: 100 } }} label="Double" value="double_jeopardy_round" />
+                <Tab sx={{ minWidth: { sm: 50, lg: 100 } }} label="Final" value="final_jeopardy_round" />
               </Tabs>
-     
-             
+
+
               <Paper
                 component="form"
                 sx={{ p: '2px 4px', margin: "2px 8px", display: 'flex', alignItems: 'center', width: "9rem" }}
@@ -178,7 +170,7 @@ export default function BoardHeader() {
                   sx={{ ml: 1 }}
                   placeholder="1"
                   defaultValue={show}
-                             startAdornment={
+                  startAdornment={
                     <InputAdornment position="start">
                       Game #
                     </InputAdornment>
@@ -200,92 +192,97 @@ export default function BoardHeader() {
         </Box>
 
         {/* -------------- Board & Grid  --------------*/}
-    
-        <Box
-          id="jeopardy-board"
-          sx={{
-            aspectRatio: '1.3 / 1', // game aspect ratio is equvalient for inner cells
-            display: 'grid',
-            gridTemplateColumns: 'repeat(6, minmax(0, 1fr))',
-            gridTemplateRows:  'repeat(6, minmax(0, 1fr))',
-            gap: 2,
-            // width: `min(100%, 100vh)`,
-            maxHeight:"100%",
-            boxSizing: 'border-box',
-
-          }}
-        >
-
-
-          
-          {/* --------------- Categories -------------- */}
-          {!finalCat && (
-            Array.from({ length: 6 }).map((_, i) => (
-              <CategoryCell
-                key={i}
-                index={i}
-                isLoading={loading}
-                title={loading ? "" : categories[i]}
-              />
-            ))
-          )}
-
-
-{/* --------------- Clues -------------- */}
-{finalCat ? (
-  /* FINAL JEOPARDY: one big cell spanning both rows *and* all 6 columns */
-  <Box
-    sx={{
-      gridRow:    '1 / span 2',    
-      gridColumn: '3 / span 2',    
-      bgcolor:    'primary.main',
-      color:      'white',
-      display:    'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width:      '100%',
-      height:     '100%',
-      boxSizing:  'border-box',
-    }}
-  >
-    {loading || !finalValue
-      ? <Skeleton variant="rectangular" width="100%" height="100%" animation="wave" /> 
-      : <Clue {...finalValue} finalJeopardy={finalCat} />
-    }
-  </Box>
-) : (
-  /* SINGLE OR DOUBLE JEOPARDY: fill with empty skeleton if still loading */
-  (loading ? Array(clueRows * 6).fill(null) : values).map((clueObj, idx) => {
-    const row = Math.floor(idx / 6) + 2;
-    const col = (idx % 6) + 1;
-    return (
-      <Box
-        key={idx}
-        sx={{
-          gridRow:      row,
-          gridColumn:   col,
-          bgcolor:      'primary.main',
-          opacity:      loading ? 0.5 : 1,
-          color:        'white',
-          display:      'flex',
-          alignItems:   'center',
-          justifyContent:'center',
-          width:        '100%',
-          height:       '100%',
-          boxSizing:    'border-box',
-        }}
-      >
-        {loading
-          ? <Skeleton variant="rectangular" width="100%" height="100%" animation="wave"/>
-          : <Clue {...clueObj} />
-        }
-      </Box>
-    );
-  })
-)}
-        </Box>
+          <Box sx={{ flex: 1, overflow: 'hidden' }}>
 
        
+        <Box sx={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          overflow: 'hidden',
+        }}>
+          <Box
+            id="jeopardy-board"
+            sx={{
+              height: '100%',
+              aspectRatio: '1', // or 6 / 6
+              width: 'auto',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              gridTemplateRows: 'repeat(6, 1fr)',
+              gap: 2,
+              boxSizing: 'border-box',
+            }}
+          >
+
+            {/* --------------- Categories -------------- */}
+            {!finalCat && (
+              Array.from({ length: 6 }).map((_, i) => (
+                <CategoryCell
+                  key={i}
+                  index={i}
+                  isLoading={loading}
+                  title={loading ? "" : categories[i]}
+                />
+              ))
+            )}
+
+
+            {/* --------------- Clues -------------- */}
+            {finalCat ? (
+              /* FINAL JEOPARDY: one big cell spanning both rows *and* all 6 columns */
+              <Box
+                sx={{
+                  gridRow: '1 / span 2',
+                  gridColumn: '3 / span 2',
+                  bgcolor: 'primary.main',
+                  color: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  height: '100%',
+                  boxSizing: 'border-box',
+                }}
+              >
+                {loading || !finalValue
+                  ? <Skeleton variant="rectangular" width="100%" height="100%" animation="wave" />
+                  : <Clue {...finalValue} finalJeopardy={finalCat} />
+                }
+              </Box>
+            ) : (
+              /* SINGLE OR DOUBLE JEOPARDY: fill with empty skeleton if still loading */
+              (loading ? Array(clueRows * 6).fill(null) : values).map((clueObj, idx) => {
+                const row = Math.floor(idx / 6) + 2;
+                const col = (idx % 6) + 1;
+                return (
+                  <Box
+                    key={idx}
+                    sx={{
+                      gridRow: row,
+                      gridColumn: col,
+                      bgcolor: 'primary.main',
+                      opacity: loading ? 0.5 : 1,
+                      color: 'white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '100%',
+                      height: '100%',
+                      boxSizing: 'border-box',
+                    }}
+                  >
+                    {loading
+                      ? <Skeleton variant="rectangular" width="100%" height="100%" animation="wave" />
+                      : <Clue {...clueObj} />
+                    }
+                  </Box>
+                );
+              })
+            )}
+          </Box>
+        </Box>
    </Box>
       </Box>
     </Container>
@@ -307,7 +304,7 @@ function CategoryCell({ title, isLoading, index }: CategoryCellProps) {
         gridRow: 1,
         gridColumn: index + 1,
         bgcolor: 'primary.main',
-        opacity: isLoading ? "0.5" : "1", 
+        opacity: isLoading ? "0.5" : "1",
         color: 'white',
         textAlign: 'center',
         width: '100%',

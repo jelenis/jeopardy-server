@@ -101,7 +101,7 @@ export default function Category({ title, elevation }: CategoryProps) {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'primary.main',
-  
+  aspectRatio: '1.3 / 1'
       }}
     >
 
