@@ -101,7 +101,7 @@ export default function Category({ title, elevation }: CategoryProps) {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'primary.main',
-  aspectRatio: '1.3 / 1'
+    aspectRatio: '1.3 / 1'
       }}
     >
 
@@ -120,7 +120,7 @@ export default function Category({ title, elevation }: CategoryProps) {
         >
           <Typography
             sx={{
-              fontSize: '2rem',
+              fontSize: 'clamp(0.1rem, min(2.8vw, 2.8vh), 2rem)',
               fontWeight: 'bold',
               color: 'white',
               textAlign: 'center',

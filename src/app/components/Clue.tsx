@@ -9,7 +9,6 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     bgcolor: 'primary.main',
-    border: '2px solid #000',
     boxShadow: 24,
     pt: 2,
     px: 4,
@@ -21,6 +20,7 @@ const style = {
     justifyContent: 'center',
     flexDirection: 'column',
     outline: 'none',
+   
 };
 
 
@@ -45,7 +45,7 @@ function ClueModal({ open, onClose, clue, image, response, video }:
                 onClick={handleClick}
                 aria-labelledby="parent-modal-title"
                 aria-describedby="parent-modal-description"
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer',  }}
             >
                 <Box sx={{ ...style }}>
                     <Box >
@@ -60,7 +60,6 @@ function ClueModal({ open, onClose, clue, image, response, video }:
                     </Box>
                     {image && !responseOpen && <Box
                         component="img"
-
                         alt=""
                         src={image}
                     />}
@@ -121,21 +120,20 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
                 sx={{
                     // marginTop: finalJeopardy ? "5rem" : "inherit",
                     backgroundColor: clue && active ? 'primary.main' : 'primary.dark',
-                    padding: 2,
                     height: "100%",
                     width: '100%',
                     textAlign: 'center',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    // fontSize: 'clamp(0.6rem, 2.6vw, 3.1rem)',
+                    fontSize: 'clamp(0.1rem, min(5vw, 5vh), 4rem)',
                 }}>
 
                 {!finalJeopardy && <Typography sx={{
+                    fontSize: "1em",
                     color: clue && active ? '#ffc107' : 'rgb(14,65,118)',
                     opacity: !clue ? 0.1 : 1,
                     fontWeight: "bolder",
-                    // fontSize: "1em",
                     textShadow: clue && active ? '3px 3px 0px rgba(0, 0, 0, 0.5)' : 'none',
                 }}>
                     {value}
