@@ -46,8 +46,8 @@ export default function RootLayout({
                   // bgcolor: 'white', // dark mode background
                   minHeight: '100vh',
                   color: 'white',
-                  px: 2,
-                  py: 4,
+                  px: 0,
+                  py: 0,
                 }}
             >
               {children}
