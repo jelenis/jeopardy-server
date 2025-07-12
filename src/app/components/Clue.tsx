@@ -17,7 +17,6 @@ const style = {
     '@media (orientation: portrait)':  {
         height: 'auto',
         width: '90%',
-        fontSize: '1.5rem',
     },
     aspectRatio: '1.3 / 1',
     display: 'flex',
@@ -55,11 +54,20 @@ function ClueModal({ open, onClose, clue, image, response, video }:
                 <Box sx={{ ...style }}>
                     <Box >
                         {responseOpen == false && <Typography id="parent-modal-title" variant="h2"
-                            sx={{ textAlign: 'center', fontWeight: 'bold' }}>
+                            sx={{ textAlign: 'center', fontWeight: 'bold',
+                                '@media (orientation: portrait)': {
+                                fontSize: '1.5rem',
+                            }
+                            }}>
                             {clue}
                         </Typography>}
                         {responseOpen && <Typography id="parent-modal-title" variant="h2"
-                            sx={{ textAlign: 'center', fontWeight: 'bold' }}>
+                            sx={{ 
+                                textAlign: 'center', 
+                                fontWeight: 'bold', 
+                                '@media (orientation: portrait)': {
+                                fontSize: '1.5rem',
+                            } }}>
                             {response}
                         </Typography>}
                     </Box>
@@ -146,7 +154,7 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
 
                 {finalJeopardy && <Typography
                     sx={{
-                        fontSize: 'clamp(0.1rem, min(5vw, 5vh), 4rem)',
+                        fontSize: 'clamp(0.6rem, 2.2vw, 4.1rem)',
                         fontWeight: 'bold',
                         color: 'white',
                         textAlign: 'center',
