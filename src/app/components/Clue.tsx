@@ -14,6 +14,11 @@ const style = {
     px: 4,
     pb: 3,
     height: '80%',
+    '@media (orientation: portrait)':  {
+        height: 'auto',
+        width: '90%',
+        fontSize: '1.5rem',
+    },
     aspectRatio: '1.3 / 1',
     display: 'flex',
     alignItems: 'center',
@@ -141,7 +146,7 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
 
                 {finalJeopardy && <Typography
                     sx={{
-                        fontSize: 'clamp(0.6rem, 2.2vw, 4.1rem)',
+                        fontSize: 'clamp(0.1rem, min(5vw, 5vh), 4rem)',
                         fontWeight: 'bold',
                         color: 'white',
                         textAlign: 'center',
