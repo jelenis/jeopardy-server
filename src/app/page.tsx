@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Skeleton, Paper, Tabs, Tab, Container, Box, Typography, InputBase, InputAdornment, NoSsr } from '@mui/material';
+import { Skeleton, Paper, Tabs, Tab, Container, Box, Typography, InputBase, InputAdornment, NoSsr, Button } from '@mui/material';
 import Category from './components/Category';
 import Clue, { ClueProps } from './components/Clue';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
 //@ts-ignore
@@ -51,6 +53,7 @@ const portraitMode = [[0,0], [0,1], [0,2], [6,0], [6,1], [6,2],
                       [5,0], [5,1], [5,2], [11,0], [11,1], [11,2]];
 
 
+
 /**
  * BoardHeader component displays the game board header for a Jeopardy-style game.
  *
@@ -79,11 +82,17 @@ export default function BoardHeader() {
   useEffect(() => {
     async function fetchGame() {
       setLoading(true);
-      const res = await fetch(`/api/game?show=${show}`);
-      const data = await res.json();
-      setGame(data);
-      setRound('jeopardy_round');
-      setLoading(false);
+      try{
+        const res = await fetch(`/api/game?show=${show}`);
+        const data = await res.json();
+        
+
+        setGame(data);
+        setRound('jeopardy_round');
+        setLoading(false);
+      } catch (error) {
+        console.log('Error fetching game data:', error);
+      }
     }
     fetchGame();
   }, [show]);
@@ -190,7 +199,7 @@ export default function BoardHeader() {
                 JEOPARDY!
               </Typography>
             </Box>
-            
+
             {/* INPUT for selecting "show" numbers */}   
             <Paper
               component="form"
@@ -202,16 +211,17 @@ export default function BoardHeader() {
                }}
             >
               <InputBase
+                id="show-input"
                 sx={{ 
                   ml: 1,
                   color: "grey",
                   '& input': {
-                  textAlign: 'right'
-                }
+                    textAlign: 'right'
+                  }
                 }}
                 
-                placeholder={show}
-                
+                placeholder={show.toString()}
+                defaultValue={show}
 
                 startAdornment={
                   <InputAdornment position="start" sx={{'@media (max-width:600px)': {display: 'none'}}}>
@@ -225,10 +235,14 @@ export default function BoardHeader() {
                   const newValue = (event.target as HTMLInputElement).value;
                   if (!isNaN(Number(newValue))) {
                     setShow(Number(newValue));
+                  } else {
+                    (event.target as HTMLInputElement).value = show.toString(); // reset to current show if invalid
                   }
                 }}
               />
             </Paper>
+            <Button variant="text" sx={{color: "white"}}><ArrowBackIosIcon /></Button>
+            <Button variant="text" sx={{color: "white"}}><ArrowForwardIosIcon /></Button>
           </Box>
         </Box>
   </Box>
@@ -239,7 +253,7 @@ export default function BoardHeader() {
         {/* Main grid container */}
         <Box
           sx={{
-            height: 'calc(100% - 26px)',
+            height: 'calc(100% - 46px)',
             aspectRatio: isLandscape ? '6 / 6' : '3 / 12', // 1:1 in landscape, 1:4 in portrait
             display: 'grid',
             gridTemplateColumns: isLandscape ? 'repeat(6, 1fr)' : 'repeat(3, 1fr)',

@@ -7,9 +7,10 @@ export async function GET(request: Request) {
   
   const url : URL = new URL(request.url);
   let showNum = url.searchParams.get('show');
-  if (isNaN(Number(showNum)) || showNum == null || !showNum) {
+  if (isNaN(Number(showNum)) || showNum == null) {
     showNum = '1';
   }
+  console.log(`showNum: ${showNum}`);
   const game = await Jeopardy.getGameByShow(showNum);
   return NextResponse.json(game); 
 }
