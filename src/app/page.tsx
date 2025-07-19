@@ -53,7 +53,7 @@ const portraitMode = [[0,0], [0,1], [0,2], [6,0], [6,1], [6,2],
                       [5,0], [5,1], [5,2], [11,0], [11,1], [11,2]];
 
 
-
+let newestShow = 1; // global variable to keep track of the current show number
 /**
  * BoardHeader component displays the game board header for a Jeopardy-style game.
  *
@@ -77,7 +77,8 @@ export default function BoardHeader() {
   const [show, setShow] = useState(1);
 
   const isLandscape = useMediaQuery('(orientation: landscape)', { noSsr: true });
-
+  async function fetchNewest() {
+  }
   // automatically update the game data when the component mounts
   useEffect(() => {
     async function fetchGame() {
@@ -94,6 +95,7 @@ export default function BoardHeader() {
         console.log('Error fetching game data:', error);
       }
     }
+
     fetchGame();
   }, [show]);
 
