@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-// import "./globals.css";
+import "./globals.css";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { Roboto } from 'next/font/google';
 import { ThemeProvider } from '@mui/material/styles';
-
+import theme from './theme';
 
 import { Box } from '@mui/material';
 
@@ -39,7 +39,19 @@ export default function RootLayout({
     <html lang="en" className={roboto.variable}>
       <body>
         <AppRouterCacheProvider>
-          {children}
+          <ThemeProvider theme={theme}>
+            <Box
+                sx={{
+                  bgcolor: '#2d2d2d', // dark indigo 
+                  minHeight: '100vh',
+                  color: 'white',
+                  px: 0,
+                  py: 0,
+                }}
+            >
+              {children}
+            </Box>
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
