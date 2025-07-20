@@ -39,7 +39,7 @@ export default function RootLayout({
     <html lang="en" className={roboto.variable}>
       <body>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
+       
             <Box
                 sx={{
                   bgcolor: '#2d2d2d', // dark indigo 
@@ -51,7 +51,7 @@ export default function RootLayout({
             >
               {children}
             </Box>
-          </ThemeProvider>
+  
         </AppRouterCacheProvider>
       </body>
     </html>
