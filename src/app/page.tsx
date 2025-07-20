@@ -160,15 +160,15 @@ export default function Page() {
               width: { xs: "100%", md: "50%" }
             }}>
               {/* <ContentHeader>About</ContentHeader> */}
-             
-            <Typography sx={{ color: "text.secondary", mt: 5, mb: 2, fontWeight: 100}}>
-              I’m a University of Guelph Systems Engineering
-              graduate with hands‑on experience in both <Box component={"span"} sx={{color: "main", fontWeight:600}}>web development </Box> 
-              and <Box component={"span"} sx={{color: "main", fontWeight:600}}>embedded firmware</Box>.
+             <ContentHeader sx={{mt: 5}}>About Me</ContentHeader>
+            <Typography sx={{ color: "text.secondary",  mb: 2, fontWeight: 100}}>
+              I’m a Systems Engineering
+              graduate with hands‑on experience in both <Box component={"span"} sx={{color: "main", fontWeight:600}}>full-stack development </Box> 
+              and <Box component={"span"} sx={{color: "main", fontWeight:600}}>embedded systems</Box>.
               After stepping away for a bit, I’m now eager to jump back into the tech world and put my skills to work.
             </Typography>
             <Typography sx={{ color: "text.secondary", mb: 3,  fontWeight: 100}}>
-              Check out some of my web projects below. You can also find more on my GitHub or connect with me on LinkedIn!
+              Check out some of my personal projects below. You can also find more on my GitHub or connect with me on LinkedIn!
             </Typography>
               <ContentHeader>Projects</ContentHeader>
                 <ContentList projects={[

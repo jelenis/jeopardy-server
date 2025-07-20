@@ -30,3 +30,11 @@ background: linear-gradient(34deg, #219ebc 0%, #25b6d9 100%);
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+
+body {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f7f7f7 100%
+  );
+}

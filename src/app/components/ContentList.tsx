@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Box, CardMedia, Card, CardContent, Typography, CardActions, Button, CardActionArea, Divider} from '@mui/material';
+import { Box, CardMedia, Card, CardContent, Typography, CardActions, Button, CardActionArea, Divider } from '@mui/material';
 
 
 
@@ -14,50 +14,59 @@ interface ContentListProps {
   projects: Project[];
 }
 
-export default function ContentList({projects}: ContentListProps) {
-return (<Box
-  sx={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 2,             // space between cards
+export default function ContentList({ projects }: ContentListProps) {
+  return (<Box
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 5,             // space between cards
       '& > :last-child': {
-      mb: 2,           // theme.spacing(2) → 16px
-    },
-  }}
->    
-  {projects.map((p,i) => (
-    <Box key={i}>
-    <Card  sx={{ 
-      maxWidth: {xs:"100%", md:"80%"},
-      ml: {xs: 0, md:"5%"},
-      boxShadow: "none",
-      borderRadius: "15px 15px",
-      border: "1px solid rgba(0,0,0,0.1)"
-       }}>
-        <CardActionArea>
-        <CardMedia
-          sx={{ height: 140 }}
-          image={p.thumbnail}
-          title=""
-        />
-        <CardContent sx={{borderTop: "1px solid rgba(0, 0, 0, 0.2)",}}>
-          <Typography gutterBottom variant="h5" component="div">
-            {p.title}
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            {p.description}
-          </Typography>
-        </CardContent>
-        </CardActionArea>
-      </Card>
- {/* {i < projects.length - 1 && (
+        mb: 2,           // theme.spacing(2) → 16px
+      },
+     
+    }}
+  >
+    {projects.map((p, i) => (
+      <Box key={i} sx={{ 
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center"}}>
+        <Card sx={{
+          
+          maxWidth: { xs: "80%", md: "95%" },
+          transition: 'box-shadow 0.2s ease-in-out',
+          boxShadow: '0',        // disable box-shadow normally
+          '&:hover': {
+            boxShadow: 4,      // elevated on hover
+          },
+          borderRadius: "10px 10px",
+          border: "1px solid rgba(0,0,0,0.1)"
+        }}>
+          <CardActionArea sx={{ }}>
+            <CardMedia
+              sx={{ height: 140 }}
+              image={p.thumbnail}
+              title=""
+            />
+            <CardContent sx={{ borderTop: "1px solid rgba(0, 0, 0, 0.2)", }}>
+              <Typography gutterBottom variant="h5" component="div">
+                {p.title}
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                {p.description}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+        {/* {i < projects.length - 1 && (
       <Divider sx={{ my: 2 }} />
     )} */}
 
-    </Box>
-   
+      </Box>
 
 
-  ))}
-</Box>
-);}
+
+    ))}
+  </Box>
+  );
+}
