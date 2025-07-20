@@ -1,13 +1,14 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Container, Box, Typography, Button, Divider } from '@mui/material';
-import styles from './page.module.css';
+
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AnimatedWaves from './components/AnimatedWaves';
-import WordCycle from './components/WordCycle';
-import { Poppins, Montserrat, Dancing_Script, Lobster } from 'next/font/google'
+
+import { Poppins, Montserrat, Dancing_Script, Lobster, Knewave } from 'next/font/google'
 import SocialLinks from './components/SocialLinks';
 import DownloadIcon from '@mui/icons-material/Download';
+import ProfileImage from './components/ProfileImage';
 
 
 const poppins = Poppins({
@@ -24,11 +25,11 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 });
 
-const dancing = Dancing_Script({
+const knewave = Knewave({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', ],
+  weight: ['400',  ],
   display: 'swap',
-  variable: '--font-dancing-script',
+  variable: '--font-knewave',
 });
 const lobster = Lobster({
   subsets: ['latin'],
@@ -69,28 +70,44 @@ export default function Page() {
   
       <AnimatedWaves />
 
-    <Container className={`${poppins.variable} ${montserrat.variable} ${dancing.variable} ${lobster.variable}`} >
+    <Container className={`${poppins.variable} ${montserrat.variable} ${knewave.variable} ${lobster.variable}`} >
       <ThemeProvider theme={theme}>
-        <Box sx={{display: 'flex',}}>
-
+        <Box sx={{
+          display: 'flex', 
+          direction: "row",
+          justifyContent: 'center',
+          width: {xs: "auto", md:'29%'},
+          ml: 2}}>
+        <ProfileImage/>
         </Box>
         <Box sx={{  display: 'flex', alignItems: 'flex-start', flexDirection: {  xs: 'column', md: 'row' } }}>
-
+        
           {/* Left Column */}
           <Box
             
             sx={{
               position: {xs: 'static', md: 'sticky'},
-              width: { xs: '100%', md: 'auto' }, // fill width on small screens, fixed width on larger
+              width: { xs: '100%', md: '40%' }, // fill width on small screens, fixed width on larger
               top: "2.5rem",
               flex: '0 0 auto', // no shrink, no grow, fixed width
               overflowY: 'auto', 
               boxSizing: 'border-box',
-              pr: 10,
+              justifyContent: 'center',
+              pr: {xs: 0, md: 10},
+
+              display: {xs: "flex", md: "block"},
+              flexDirection: {xs: "column"},
+              alignItems: {xs: "center"},
             }}
           >
-
-            <Typography variant="h3" noWrap fontWeight={800} sx={{ pl: 1, fontSize: "4rem", fontFamily: "var(--font-dancing-script)", color: 'main' }}>
+            
+            <Typography variant="h3" noWrap fontWeight={100} sx={{ 
+              // textShadow: "2px 2px 0px #00000014", 
+              pl: 1, 
+              fontFamily: "var(--font-knewave)", 
+              color: 'main',
+              fontSize: '4rem'
+              }}>
               John <Box component="span" sx={{  }}>Elenis</Box>
             </Typography>
 
@@ -105,7 +122,7 @@ export default function Page() {
             
             <Box sx={{ 
               display: 'flex',
-              direction: 'row',
+              justifyContent: { xs: 'flex-start', md: 'space-between'},
               alignItems: 'center',
               mt: 2,
               pb: 2,}}>
@@ -116,9 +133,10 @@ export default function Page() {
                   fontSize: '1rem',
                   fontFamily: 'var(--font-montserrat)',
                   fontWeight: 400,
+                  mr: {xs: "15px", md: 0}
                 }}>Resume </Button>
-              <Box sx={{ flex: 1 }}/>
-             <SocialLinks />
+            
+              <SocialLinks />
              
             </Box>
           </Box>
@@ -127,8 +145,10 @@ export default function Page() {
           <Box sx={{
               display: 'flex',
               flexDirection: 'column',
+              alignItems: "center",
+              width: { xs:"100%", md:"60%"}
             }}>
-          <Box sx={{ flex: 1, p: 2,}}>
+          <Box sx={{ width: "auto", p: 2,}}>
             {Array.from({ length: 100 }).map((_, i) => (
               <Typography key={i} >
                 Scrollable Item #{i + 1}: Lorem ipsum dolor sit amet, consectetur adipiscing elit.

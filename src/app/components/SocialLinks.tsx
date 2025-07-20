@@ -6,7 +6,7 @@ import EmailIcon from '@mui/icons-material/Email';
 
 export default function SocialLinks() {
   return (
-    <Box sx={{ display: 'flex', gap: 2, m: "auto"}}>
+    <Box sx={{ display: 'flex', gap: 2,}}>
       <IconButton
         component="a"
         href="https://github.com/jelenis"
