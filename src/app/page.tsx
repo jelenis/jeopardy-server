@@ -93,68 +93,83 @@ export default function Page() {
 
               sx={{
                 position: { xs: 'static', md: 'sticky' },
-                width: { xs: '100%', md: 'auto' }, // fill width on small screens, fixed width on larger
+                width: { xs: '100%', md: '48%' }, // fill width on small screens, fixed width on larger
                 top: "2.5rem",
                 flex: '0 0 auto', // no shrink, no grow, fixed width
                 overflowY: 'auto',
                 boxSizing: 'border-box',
                 justifyContent: 'center',
-                pr: { xs: 0, md: 10 },
+                // mr: { xs: 0, md: 2 },
 
                 display: { xs: "flex", md: "block" },
                 flexDirection: { xs: "column" },
                 alignItems: { xs: "center" },
               }}
             >
+              <Box 
+              sx={{
+                display: "inline-flex",
+                flexDirection: "column",}}>
+                <Typography  variant="h3" noWrap fontWeight={100} sx={{
+                  // textShadow: "2px 2px 0px #00000014", 
+                  pl: 1,
+                  fontFamily: "var(--font-knewave)",
+                  color: 'main',
+                  fontSize: {xs: '3.2rem', sm:'4rem'}
+                }}>
+                  John <Box component="span" sx={{}}>Elenis</Box>
+                </Typography>
 
-              <Typography variant="h3" noWrap fontWeight={100} sx={{
-                // textShadow: "2px 2px 0px #00000014", 
-                pl: 1,
-                fontFamily: "var(--font-knewave)",
-                color: 'main',
-                fontSize: {xs: '3.2rem', sm:'4rem'}
-              }}>
-                John <Box component="span" sx={{}}>Elenis</Box>
-              </Typography>
+                <Typography variant='h5' noWrap sx={{ color: 'text.secondary' }}>
+                  Junior Software Developer
+                </Typography>
 
-              <Typography variant='h5' noWrap sx={{ color: 'text.secondary' }}>
-                Junior Software Developer
-              </Typography>
+                <Typography variant='h6' noWrap sx={{ color: 'text.secondary', mt: 2, display: {xs: "none", md: "block"}}}>
+                  Want to know more? My resume covers <br />
+                  my work experience  and time in grad school.
+                </Typography>
 
-              <Typography variant='h6' noWrap sx={{ color: 'text.secondary', mt: 2, display: {xs: "none", md: "block"}}}>
-                Want to know more? My resume covers <br />
-                my work experience  and time in grad school.
-              </Typography>
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: { xs: 'flex-start', md: 'space-between' },
+                  alignItems: 'center',
+                  mt: 2,
+                  pb: 2,
+                }}>
+                  <Button variant='contained'
+                    sx={{
+                      bgcolor: 'main',
+                      borderRadius: '32px 32px',
+                      fontSize: '1rem',
+                      fontFamily: 'var(--font-montserrat)',
+                      fontWeight: 400,
+                      mr: { xs: "15px", md: 0 }
+                    }}>Resume </Button>
 
-              <Box sx={{
-                display: 'flex',
-                justifyContent: { xs: 'flex-start', md: 'space-between' },
-                alignItems: 'center',
-                mt: 2,
-                pb: 2,
-              }}>
-                <Button variant='contained'
-                  sx={{
-                    bgcolor: 'main',
-                    borderRadius: '32px 32px',
-                    fontSize: '1rem',
-                    fontFamily: 'var(--font-montserrat)',
-                    fontWeight: 400,
-                    mr: { xs: "15px", md: 0 }
-                  }}>Resume </Button>
+                  <SocialLinks />
 
-                <SocialLinks />
+                </Box>
 
               </Box>
             </Box>
-
+            
             {/* Right Column (scrolls the page) */}
             <Box sx={{
               display: 'flex',
               flexDirection: 'column',
-              width: { xs: "100%", md: "60%" }
+              width: { xs: "100%", md: "50%" }
             }}>
-
+              {/* <ContentHeader>About</ContentHeader> */}
+             
+            <Typography sx={{ color: "text.secondary", mt: 5, mb: 2, fontWeight: 100}}>
+              I’m a University of Guelph Systems Engineering
+              graduate with hands‑on experience in both <Box component={"span"} sx={{color: "main", fontWeight:600}}>web development </Box> 
+              and <Box component={"span"} sx={{color: "main", fontWeight:600}}>embedded firmware</Box>.
+              After stepping away for a bit, I’m now eager to jump back into the tech world and put my skills to work.
+            </Typography>
+            <Typography sx={{ color: "text.secondary", mb: 3,  fontWeight: 100}}>
+              Check out some of my web projects below. You can also find more on my GitHub or connect with me on LinkedIn!
+            </Typography>
               <ContentHeader>Projects</ContentHeader>
                 <ContentList projects={[
                   {

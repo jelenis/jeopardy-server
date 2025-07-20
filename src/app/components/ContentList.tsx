@@ -28,18 +28,17 @@ return (<Box
   {projects.map((p,i) => (
     <Box key={i}>
     <Card  sx={{ 
-      maxWidth: "80%", 
-      // bgcolor: "#f8f8f881", 
-      ml: "5%",
+      maxWidth: {xs:"100%", md:"80%"},
+      ml: {xs: 0, md:"5%"},
       boxShadow: "none",
       borderRadius: "15px 15px",
-      border: "1px solid rgba(0,0,0,0.2)"
+      border: "1px solid rgba(0,0,0,0.1)"
        }}>
         <CardActionArea>
         <CardMedia
           sx={{ height: 140 }}
           image={p.thumbnail}
-          title="green iguana"
+          title=""
         />
         <CardContent sx={{borderTop: "1px solid rgba(0, 0, 0, 0.2)",}}>
           <Typography gutterBottom variant="h5" component="div">
