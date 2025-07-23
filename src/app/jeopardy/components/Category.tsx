@@ -38,16 +38,16 @@ export default function Category({ title, elevation }: CategoryProps) {
   const textRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   
- 
-  // Split the title into lines of max 4 characters each
-  // if the word is longer than 4 characters
-  const [displayText, setDisplayText] = useState(title.replace(/(\S{4,})(?=\s)/g, '$1\n'));
+
+
+  // if the word is longer than 3 characters replace space with newline
   const [visible, setVisible] = useState(false);
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
-
+  
+  const displayText = title.replace(/(\S{3,})(?=\s)/g, '$1\n');
 
   useEffect(() => {
     function handleResize() {
@@ -81,13 +81,13 @@ export default function Category({ title, elevation }: CategoryProps) {
       const parentHeight = parent.offsetHeight;
 
       const wScale = (parentWidth / textWidth) * 0.75;
-      const hScale = (parentHeight / textHeight) * 0.7;
+      const hScale = (parentHeight / textHeight) * 0.6;
       
 
       const rawScale = Math.min(wScale, hScale);
 
       // Find the bucket whose value is closest to rawScale:
-      const SCALE_BUCKETS = [2,4,5,5.5,6,8,10,12,14,15];
+      const SCALE_BUCKETS = [2,3,3.5,4,5.5,6];
       const snapped = SCALE_BUCKETS.reduce((prev, curr) =>
         // choose the bucket that is closest to rawScale
         Math.abs(curr - rawScale) < Math.abs(prev - rawScale) ? curr : prev
@@ -101,7 +101,7 @@ export default function Category({ title, elevation }: CategoryProps) {
         setVisible(true);
       });
     });
-  }, [ windowSize]);
+  }, [ windowSize, displayText]);
 
   return (
     <Paper
