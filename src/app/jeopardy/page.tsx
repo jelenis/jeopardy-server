@@ -49,12 +49,12 @@ interface Game {
 // This defines how the grid cells are arranged in portrait mode
 // (row,column) pairs for each cell in the grid
 // The first 6 cells are categories, the rest are clues
-const portraitMode = [[0,0], [0,1], [0,2], [6,0], [6,1], [6,2],
-                      [1,0], [1,1], [1,2], [7,0], [7,1], [7,2],
-                      [2,0], [2,1], [2,2], [8,0], [8,1], [8,2],
-                      [3,0], [3,1], [3,2], [9,0], [9,1], [9,2],
-                      [4,0], [4,1], [4,2], [10,0], [10,1], [10,2],
-                      [5,0], [5,1], [5,2], [11,0], [11,1], [11,2]];
+const portraitMode = [[0, 0], [0, 1], [0, 2], [6, 0], [6, 1], [6, 2],
+[1, 0], [1, 1], [1, 2], [7, 0], [7, 1], [7, 2],
+[2, 0], [2, 1], [2, 2], [8, 0], [8, 1], [8, 2],
+[3, 0], [3, 1], [3, 2], [9, 0], [9, 1], [9, 2],
+[4, 0], [4, 1], [4, 2], [10, 0], [10, 1], [10, 2],
+[5, 0], [5, 1], [5, 2], [11, 0], [11, 1], [11, 2]];
 
 
 
@@ -74,13 +74,13 @@ const portraitMode = [[0,0], [0,1], [0,2], [6,0], [6,1], [6,2],
  * The component renders a grid of category headers and clues, passing each clue object to the `Clue` component.
  */
 export default function BoardHeader() {
-  
+
   const [loading, setLoading] = useState(true);
   const [game, setGame] = useState<Game | null>(null);
   const [round, setRound] = useState<'jeopardy_round' | 'double_jeopardy_round' | 'final_jeopardy_round'>('jeopardy_round');
   const [gameID, setGameID] = useState(-1);
   const [showInput, setShowInput] = useState<string>('');
-  
+
   const isLandscape = useMediaQuery('(orientation: landscape)', { noSsr: true });
 
   // automatically update the game data when the component mounts
@@ -89,7 +89,7 @@ export default function BoardHeader() {
       setLoading(true);
       try {
         const res = await fetch(`jeopardy/api/game?gameID=${gameID}`);
-        const data = await res.json(); 
+        const data = await res.json();
         setGame(data);
         setRound('jeopardy_round');
         const m = data.title?.match(/Show #(\d+)/);
@@ -109,33 +109,33 @@ export default function BoardHeader() {
       setGameID(-1);
       return;
     }
-    try{
-        setLoading(true);
-        const res = await fetch(`jeopardy/api/game?show=${num}`);
-        const data = await res.json();
+    try {
+      setLoading(true);
+      const res = await fetch(`jeopardy/api/game?show=${num}`);
+      const data = await res.json();
 
-        setGame(data);
-        setRound('jeopardy_round');
-        setLoading(false);
-      } catch (error) {
-        console.log('Error fetching game data:', error);
-      }
+      setGame(data);
+      setRound('jeopardy_round');
+      setLoading(false);
+    } catch (error) {
+      console.log('Error fetching game data:', error);
+    }
   }
 
- 
+
   const categories = game?.[round] ? Object.keys(game[round]) : [];
   let values: ClueProps[] = game?.[round] ? Object.values(game[round]) : [] as RoundType;
   let finalCat = '';
   let finalValue: ClueProps | null = null;
   const clueRows = (round === 'final_jeopardy_round') ? 1 : 5;
-  
+
   let gameDate = "";
   if (game && game.title) {
     const monthYearIndex = game.title.indexOf(',');
     gameDate = game.title.slice(monthYearIndex + 1);
   }
 
-  
+
 
 
   values = transpose(values).flat() as ClueProps[];
@@ -150,39 +150,39 @@ export default function BoardHeader() {
   function gotToNextGame(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     if (game == null || game.next_game == null) return;
     const nextGameID = game.next_game;
-    
+
     if (!isNaN(nextGameID)) {
       setGameID(nextGameID);
     }
   }
 
-   function gotToPrevGame(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+  function gotToPrevGame(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     if (game == null || game.prev_game == null) return;
     const prevGameID = game.prev_game;
- 
+
     if (!isNaN(prevGameID)) {
       setGameID(prevGameID);
     }
   }
-  
+
 
   return (
-    
-<Container disableGutters 
-  maxWidth={false} 
-  sx={{
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100vh',
-    width: '100%',
-    paddingLeft: 0,
-    paddingRight: 0,
-    paddingTop: 0,
-    pb: "5px",
-  }}>
 
-  {/* Tabs / Controls */}
-  <Box sx={{ flexShrink: 0, pb: 2 , width: '100%'}}>
+    <Container disableGutters
+      maxWidth={false}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+        width: '100%',
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 0,
+        pb: "5px",
+      }}>
+
+      {/* Tabs / Controls */}
+      <Box sx={{ flexShrink: 0, pb: 2, width: '100%' }}>
         <Box sx={{ bgcolor: "primary.main", }}>
           <Box sx={{}} display="flex" justifyContent="space-between" alignItems="center">
             <Tabs
@@ -208,7 +208,7 @@ export default function BoardHeader() {
                   '@media (max-width:600px)': {
                     minWidth: '55px',
                     fontSize: '0.65rem',
-                  },  
+                  },
 
                   '&.Mui-selected': {
                     color: '#fff',
@@ -226,95 +226,106 @@ export default function BoardHeader() {
               <Tab sx={{ minWidth: { sm: 50, lg: 100 } }} label="Final" value="final_jeopardy_round" />
             </Tabs>
 
-            
+
             <Box sx={{
               flex: 1,
               display: "flex",
               // hide the title if in portrait mode
               '@media (orientation: portrait)': {
                 display: 'none',
-              }, 
+              },
               '@media (max-width:800px)': {
                 display: 'none',
               },
               justifyContent: 'center'
             }}>
-              
+
               {/* Header */}
               <Typography sx={{
-                  color: 'rgb(14,65,118)',
-                  fontWeight: 'bolder',
-                  fontSize: '2.2rem',
+                position: 'absolute',
+                top: '0rem',
+                left: '50%',
+                transform:'translate(-50%, 0)',
+                color: 'rgb(14,65,118)',
+                fontWeight: 'bolder',
+                fontSize: '2.2rem',
               }}
-              component="span">JEOPARDY!
-              <Typography sx={{
-                  position: 'absolute',
-                  left: 'calc(50% + 6.8rem)', // adjust spacing from center
-                  transform: 'translateY(-50%)',
-                  top: '1.7rem',
-                  color: 'rgb(14,65,118)',
-                  fontSize: '1rem',
-                  whiteSpace: 'nowrap',
-                  fontWeight: 'bolder',
-                  '@media (max-width:980px)': {
-                    display: 'none',
-                  },
-                }}
-               component="span" >{gameDate}</Typography>
+                component="span">JEOPARDY!
               </Typography>
-             
+
             </Box>
 
-            {/* INPUT for selecting "show" numbers */}   
-            <Paper
-              component="form"
-              sx={{ p: '2px 4px', margin: "2px 8px", display: 'flex', alignItems: 'center', width: "9rem",
+            {/* INPUT for selecting "show" numbers */}
+            <Box sx={{ display: "flex", alignItems: 'center' }}>
+              <Typography sx={{
+
+                color: 'rgb(14,65,118)',
+                fontSize: '1rem',
+              
+                whiteSpace: 'nowrap',
+                fontWeight: 'bolder',
+                '@media (max-width:980px)': {
+                  display: 'none',
+                },
+              }}
+                component="span" >
+                <Typography component="span" sx={{
+                    '@media (max-width:1300px)': {
+                  display: 'none',
+                },
+                }}>Originally Aired: on</Typography>
+                {gameDate}</Typography>
+              <Paper
+                component="form"
+                sx={{
+                  p: '2px 4px', margin: "2px 8px", display: 'flex', alignItems: 'center', width: "9rem",
                   '@media (max-width:600px)': {
                     width: '60px',
                     fontSize: '0.65rem',
-                  },  
-               }}
-            >
-              <InputBase
-                id="show-input"
-                sx={{ 
-                  ml: 1,
-                  color: "grey",
-                  '& input': {
-                    textAlign: 'right'
-                  }
+                  },
                 }}
-                
-                value={showInput}
+              >
+                <InputBase
+                  id="show-input"
+                  sx={{
+                    ml: 1,
+                    color: "grey",
+                    '& input': {
+                      textAlign: 'right'
+                    }
+                  }}
 
-                startAdornment={
-                  <InputAdornment position="start" sx={{'@media (max-width:500px)': {display: 'none'}}}>
-                    Game:
-                  </InputAdornment>
-                }
-                onChange={e => setShowInput(e.target.value)} // let the user type
-                onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                  if (event.key !== "Enter") return;
-                  event.preventDefault();
-                  // make sure its a number before submitting
-                  const num = Number(showInput);
-                  if (!isNaN(num)) {
-                    fetchShow(num);
-                  } else {
-                    // (event.target as HTMLInputElement).value = show; // reset to current show if invalid
+                  value={showInput}
+
+                  startAdornment={
+                    <InputAdornment position="start" sx={{ '@media (max-width:500px)': { display: 'none' } }}>
+                      Game:
+                    </InputAdornment>
                   }
-                }}
-              />
-            </Paper>
-            <Button variant="text" sx={{color: "white"}} disabled={game?.prev_game == null} onClick={gotToPrevGame}><ArrowBackIosIcon /></Button>
-            <Button variant="text" sx={{color: "white"}} disabled={game?.next_game == null} onClick={gotToNextGame}><ArrowForwardIosIcon /></Button>
+                  onChange={e => setShowInput(e.target.value)} // let the user type
+                  onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (event.key !== "Enter") return;
+                    event.preventDefault();
+                    // make sure its a number before submitting
+                    const num = Number(showInput);
+                    if (!isNaN(num)) {
+                      fetchShow(num);
+                    } else {
+                      // (event.target as HTMLInputElement).value = show; // reset to current show if invalid
+                    }
+                  }}
+                />
+              </Paper>
+            <Button variant="text" sx={{ color: "white" }} disabled={game?.prev_game == null} onClick={gotToPrevGame}><ArrowBackIosIcon /></Button>
+            <Button variant="text" sx={{ color: "white" }} disabled={game?.next_game == null} onClick={gotToNextGame}><ArrowForwardIosIcon /></Button>
+            </Box>
           </Box>
         </Box>
-  </Box>
+      </Box>
 
-  {/* Grid Area */}
-    <NoSsr>
-      <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', overflow: isLandscape ? 'hidden' : 'auto' }}>
+      {/* Grid Area */}
+      <NoSsr>
+        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', overflow: isLandscape ? 'hidden' : 'auto' }}>
           {/* Main grid container */}
           <Box
             sx={{
@@ -354,12 +365,12 @@ export default function BoardHeader() {
                   boxSizing: 'border-box',
                 }}
               >
-              
+
                 {
-                /* there should always be a final value but just incase show loading skeleton */
-                loading || !finalValue 
-                  ? <Skeleton variant='rectangular' width='100%' height='100%' animation='wave' />
-                  : <Clue {...finalValue} finalJeopardy={finalCat} />
+                  /* there should always be a final value but just incase show loading skeleton */
+                  loading || !finalValue
+                    ? <Skeleton variant='rectangular' width='100%' height='100%' animation='wave' />
+                    : <Clue {...finalValue} finalJeopardy={finalCat} />
                 }
               </Box>
             ) : (
@@ -399,7 +410,7 @@ export default function BoardHeader() {
             )}
           </Box>
         </Box>
-  </NoSsr>
+      </NoSsr>
     </Container>
   );
 }
