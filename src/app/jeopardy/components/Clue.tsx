@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Card, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
+import ButtonBase from '@mui/material/ButtonBase';
 import Category from './Category';
 
 
@@ -114,11 +115,16 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
     };
 
     return (
-        <Box style={{
+        <Box className={active ? "active" : ""} sx={{
             cursor: active ? 'pointer' : 'context-menu',
             width: "100%",
             height: "100%",
-            aspectRatio: '1.3 / 1'
+            aspectRatio: '1.3 / 1',
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+
+            '&.active:hover': {
+                transform: 'scale(1.021)',
+            },
         }}>
             <ClueModal
                 open={open}
@@ -129,7 +135,7 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
 
             {/* if clue and active this mean that card is clickable
                 if there is no clue then the question was never recoreded */}
-            <Box
+            <ButtonBase
                 onClick={handleReveal}
                 sx={{
                     // marginTop: finalJeopardy ? "5rem" : "inherit",
@@ -141,6 +147,10 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: 'clamp(0.1rem, min(5vw, 5vh), 4rem)',
+                    '&:hover': {
+                        // main #1976d2
+                        backgroundColor: "#1d7dddff"
+                    },
                 }}>
 
                 {!finalJeopardy && <Typography sx={{
@@ -155,7 +165,7 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
 
                 {finalJeopardy && <Category elevation={1} title={finalJeopardy} />}
 
-            </Box>
+            </ButtonBase>
         </Box>
     );
 };

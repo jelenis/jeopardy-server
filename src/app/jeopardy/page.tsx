@@ -391,7 +391,7 @@ export default function BoardHeader() {
 
 
 /**
- * wrapper function to create a category cell
+ * wrapper function to create a category 
  */
 interface CategoryCellProps {
   title: string;
