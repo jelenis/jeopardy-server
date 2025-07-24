@@ -273,7 +273,7 @@ export default function BoardHeader() {
                     '@media (max-width:1300px)': {
                   display: 'none',
                 },
-                }}>Originally Aired: on</Typography>
+                }}>Originally Aired:</Typography>
                 {gameDate}</Typography>
               <Paper
                 component="form"
