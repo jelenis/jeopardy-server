@@ -1,25 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { Roboto } from 'next/font/google';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
+import { Box, CssBaseline } from '@mui/material';
 
-import { Box } from '@mui/material';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
-  title: "John Elenis - Portfolio",
+  title: "John Elenis",
   description: "",
 };
 
@@ -36,11 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={roboto.variable}>
-      <body>
+    <html lang="en" >
+      <body  >
         <AppRouterCacheProvider>
-       
-            <Box
+     
+            <Box className={roboto.variable}
                 sx={{
                   bgcolor: '#2d2d2d', // dark indigo 
                   minHeight: '100vh',

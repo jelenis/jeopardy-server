@@ -39,18 +39,28 @@ const lobster = Lobster({
   variable: '--font-lobster',
 });
 
+
 const theme = createTheme({
   palette: {
-
-    main: "#219ebc",
-    light: '#8ecae6',
-    light2: '#80BFFF',
-    light3: "#BF80FF",
-    light4: "#fbfbfb",
-    dark: '#273F4F',
-    accent: '#ffb703',
-
-
+    primary: {
+      main: "#219ebc",
+      light: '#8ecae6',
+      dark: '#273F4F',
+    },
+    secondary: {
+      main: '#ffb703',
+      light: "#BF80FF",
+    },
+    background: {
+      default: "#fbfbfb",
+    },
+    // You can add custom colors under a 'custom' key if you want, but they won't be recognized by MUI components directly.
+    // custom: {
+    //   light2: '#80BFFF',
+    //   light3: "#BF80FF",
+    //   light4: "#fbfbfb",
+    //   accent: '#ffb703',
+    // },
   },
   typography: {
     fontFamily: 'var(--font-poppins), var(--font-montserrat), sans-serif',
@@ -114,7 +124,7 @@ export default function Page() {
                   // textShadow: "2px 2px 0px #00000014", 
                   pl: 1,
                   fontFamily: "var(--font-knewave)",
-                  color: 'main',
+                  color: 'primary.main',
                   fontSize: {xs: '3.2rem', sm:'4rem'}
                 }}>
                   John <Box component="span" sx={{}}>Elenis</Box>
@@ -138,7 +148,7 @@ export default function Page() {
                 }}>
                   <Button variant='contained'
                     sx={{
-                      bgcolor: 'main',
+                      bgcolor: 'primary.main',
                       borderRadius: '32px 32px',
                       fontSize: '1rem',
                       fontFamily: 'var(--font-montserrat)',
@@ -160,11 +170,11 @@ export default function Page() {
               width: { xs: "100%", md: "50%" }
             }}>
               {/* <ContentHeader>About</ContentHeader> */}
-             <ContentHeader sx={{mt: 5}}>About Me</ContentHeader>
+             <ContentHeader >About Me</ContentHeader>
             <Typography sx={{ color: "text.secondary",  mb: 2, fontWeight: 100}}>
               I’m a Systems Engineering
-              graduate with hands‑on experience in both <Box component={"span"} sx={{color: "main", fontWeight:600}}>full-stack development </Box> 
-              and <Box component={"span"} sx={{color: "main", fontWeight:600}}>embedded systems</Box>.
+              graduate with hands‑on experience in both <Box component={"span"} sx={{color: "primary.main", fontWeight:600}}>full-stack development </Box> 
+              and <Box component={"span"} sx={{color: "primary.main", fontWeight:600}}>embedded systems</Box>.
               After stepping away for a bit, I’m now eager to jump back into the tech world and put my skills to work.
             </Typography>
             <Typography sx={{ color: "text.secondary", mb: 3,  fontWeight: 100}}>

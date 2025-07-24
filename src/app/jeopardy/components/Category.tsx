@@ -75,6 +75,7 @@ export default function Category({ title, elevation }: CategoryProps) {
       
       const parent = el.parentElement;
       if (!parent) return;
+
       const textWidth = el.scrollWidth;
       const textHeight = el.scrollHeight;
       const parentWidth = parent.offsetWidth;
@@ -85,14 +86,7 @@ export default function Category({ title, elevation }: CategoryProps) {
 
       const rawScale = Math.min(wScale, hScale);
 
-      // Find the bucket whose value is closest to rawScale:
-      const SCALE_BUCKETS = [2,2.5,3,3.5,4,5.5,6];
-      const snapped = SCALE_BUCKETS.reduce((prev, curr) =>
-        // choose the bucket that is closest to rawScale
-        Math.abs(curr - rawScale) < Math.abs(prev - rawScale) ? curr : prev
-      );
-
-      setScale(snapped);
+      setScale(Math.round(rawScale * 10) / 10);
 
        // Make visible next frame 
        // (this prevents you seeing it scale)

@@ -297,95 +297,102 @@ export default function BoardHeader() {
   </Box>
 
   {/* Grid Area */}
-  <NoSsr>
-    <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', overflow: isLandscape ? 'hidden' : 'auto' }}>
-        {/* Main grid container */}
-        <Box
-          sx={{
-            height: 'calc(100% - 46px)',
-            aspectRatio: isLandscape ? '6 / 6' : '3 / 12', // 1:1 in landscape, 1:4 in portrait
-            display: 'grid',
-            gridTemplateColumns: isLandscape ? 'repeat(6, 1fr)' : 'repeat(3, 1fr)',
-            gridTemplateRows: isLandscape ? 'repeat(6, 1fr)' : 'repeat(12, 1fr)',
-            gap: 'clamp(0rem, min(2vw, 2vh), 3.1rem)',
-            boxSizing: 'border-box',
-          }}
-        >
-          {!finalCat && (
-            Array.from({ length: 6 }).map((_, idx) => (
-              <CategoryCell
-                key={idx}
-                index={idx}
-                isLoading={loading}
-                title={loading ? '' : categories[idx]}
-                isLandscape={isLandscape}
-              />
-            ))
-          )}
-          {finalCat ? (
-            /* FINAL JEOPARDY: one big cell spanning both rows */
-            <Box
-              sx={{
-                gridRow: isLandscape ? '2 / span 2' : '3 / span 3',
-                gridColumn: isLandscape ? '3 / span 2' : '1 / span 3',
-                bgcolor: 'primary.main',
-                color: 'white',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%',
-                height: '100%',
-                boxSizing: 'border-box',
-              }}
-            >
-              {loading || !finalValue
-                ? <Skeleton variant='rectangular' width='100%' height='100%' animation='wave' />
-                : <Clue {...finalValue} finalJeopardy={finalCat} />
-              }
-            </Box>
-          ) : (
-            // SINGLE OR DOUBLE JEOPARDY: fill with empty skeleton if still loading
-            (loading ? Array(clueRows * 6).fill(null) : values).map((clueObj, idx) => {
-              let row = Math.floor(idx / 6) + 2;
-              let col = (idx % 6) + 1;
-              if (!isLandscape) {
-                // skip the first 6 cells in portrait mode, since they are the categories
-                row = portraitMode[idx + 6][0] + 1; // +1 because grid starts at 1
-                col = portraitMode[idx + 6][1] + 1;
-              }
-              return (
-                <Box
+    <NoSsr>
+      <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', overflow: isLandscape ? 'hidden' : 'auto' }}>
+          {/* Main grid container */}
+          <Box
+            sx={{
+              height: 'calc(100% - 46px)',
+              aspectRatio: isLandscape ? '6 / 6' : '3 / 12', // 1:1 in landscape, 1:4 in portrait
+              display: 'grid',
+              gridTemplateColumns: isLandscape ? 'repeat(6, 1fr)' : 'repeat(3, 1fr)',
+              gridTemplateRows: isLandscape ? 'repeat(6, 1fr)' : 'repeat(12, 1fr)',
+              gap: 'clamp(0rem, min(2vw, 2vh), 3.1rem)',
+              boxSizing: 'border-box',
+            }}
+          >
+            {!finalCat && (
+              Array.from({ length: 6 }).map((_, idx) => (
+                <CategoryCell
                   key={idx}
-                  sx={{
-                    gridRow: row,
-                    gridColumn: col,
-                    bgcolor: 'primary.main',
-                    opacity: loading ? 0.5 : 1,
-                    color: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '100%',
-                    height: '100%',
-                    boxSizing: 'border-box',
-                  }}
-                >
-                  {loading
-                    ? <Skeleton variant='rectangular' width='100%' height='100%' animation='wave' />
-                    : <Clue {...clueObj} />
-                  }
-                </Box>
-              );
-            })
-          )}
+                  index={idx}
+                  isLoading={loading}
+                  title={loading ? '' : categories[idx]}
+                  isLandscape={isLandscape}
+                />
+              ))
+            )}
+            {finalCat ? (
+              /* FINAL JEOPARDY: one big cell spanning both rows */
+              <Box
+                sx={{
+                  gridRow: isLandscape ? '2 / span 2' : '3 / span 3',
+                  gridColumn: isLandscape ? '3 / span 2' : '1 / span 3',
+                  bgcolor: 'primary.main',
+                  color: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  height: '100%',
+                  boxSizing: 'border-box',
+                }}
+              >
+              
+                {
+                /* there should always be a final value but just incase show loading skeleton */
+                loading || !finalValue 
+                  ? <Skeleton variant='rectangular' width='100%' height='100%' animation='wave' />
+                  : <Clue {...finalValue} finalJeopardy={finalCat} />
+                }
+              </Box>
+            ) : (
+              // SINGLE OR DOUBLE JEOPARDY: fill with empty skeleton if still loading
+              (loading ? Array(clueRows * 6).fill(null) : values).map((clueObj, idx) => {
+                let row = Math.floor(idx / 6) + 2;
+                let col = (idx % 6) + 1;
+                if (!isLandscape) {
+                  // skip the first 6 cells in portrait mode, since they are the categories
+                  row = portraitMode[idx + 6][0] + 1; // +1 because grid starts at 1
+                  col = portraitMode[idx + 6][1] + 1;
+                }
+                return (
+                  <Box
+                    key={idx}
+                    sx={{
+                      gridRow: row,
+                      gridColumn: col,
+                      bgcolor: 'primary.main',
+                      opacity: loading ? 0.5 : 1,
+                      color: 'white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '100%',
+                      height: '100%',
+                      boxSizing: 'border-box',
+                    }}
+                  >
+                    {loading
+                      ? <Skeleton variant='rectangular' width='100%' height='100%' animation='wave' />
+                      : <Clue {...clueObj} />
+                    }
+                  </Box>
+                );
+              })
+            )}
+          </Box>
         </Box>
-      </Box>
-</NoSsr>
+  </NoSsr>
     </Container>
   );
 }
 
 
+
+/**
+ * wrapper function to create a category cell
+ */
 interface CategoryCellProps {
   title: string;
   isLoading: boolean;

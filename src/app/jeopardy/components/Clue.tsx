@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Card, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
+import Category from './Category';
 
 
 const style = {
@@ -152,20 +153,7 @@ const Clue: React.FC<ClueProps> = ({ clue, response, value, image, video, finalJ
                     {value}
                 </Typography>}
 
-                {finalJeopardy && <Typography
-                    sx={{
-                        fontSize: 'clamp(0.6rem, 2.2vw, 4.1rem)',
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textAlign: 'center',
-                        lineHeight: 1.1,
-                        whiteSpace: 'normal',
-                        wordBreak: 'keep-all',
-                        overflowWrap: 'normal',
-                    }}
-                >
-                    {finalJeopardy}
-                </Typography>}
+                {finalJeopardy && <Category elevation={1} title={finalJeopardy} />}
 
             </Box>
         </Box>
