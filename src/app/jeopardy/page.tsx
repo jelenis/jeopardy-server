@@ -128,7 +128,12 @@ export default function BoardHeader() {
   let finalCat = '';
   let finalValue: ClueProps | null = null;
   const clueRows = (round === 'final_jeopardy_round') ? 1 : 5;
-
+  
+  let gameDate = "";
+  if (game && game.title) {
+    const monthYearIndex = game.title.indexOf(',');
+    gameDate = game.title.slice(monthYearIndex + 1);
+  }
 
   
 
@@ -225,28 +230,39 @@ export default function BoardHeader() {
             <Box sx={{
               flex: 1,
               display: "flex",
+              // hide the title if in portrait mode
               '@media (orientation: portrait)': {
                 display: 'none',
               }, 
+              '@media (max-width:800px)': {
+                display: 'none',
+              },
               justifyContent: 'center'
             }}>
               
               {/* Header */}
-              <Typography
-                variant="h1"
-                sx={{
-                  position: 'absolute',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
+              <Typography sx={{
                   color: 'rgb(14,65,118)',
                   fontWeight: 'bolder',
-                  fontSize: '2.2em',
+                  fontSize: '2.2rem',
+              }}
+              component="span">JEOPARDY!
+              <Typography sx={{
+                  position: 'absolute',
+                  left: 'calc(50% + 6.8rem)', // adjust spacing from center
+                  transform: 'translateY(-50%)',
+                  top: '1.7rem',
+                  color: 'rgb(14,65,118)',
+                  fontSize: '1rem',
                   whiteSpace: 'nowrap',
-                  pointerEvents: 'none',
+                  fontWeight: 'bolder',
+                  '@media (max-width:980px)': {
+                    display: 'none',
+                  },
                 }}
-              >
-                JEOPARDY!
+               component="span" >{gameDate}</Typography>
               </Typography>
+             
             </Box>
 
             {/* INPUT for selecting "show" numbers */}   
