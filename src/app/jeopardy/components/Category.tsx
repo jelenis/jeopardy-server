@@ -40,13 +40,13 @@ export default function Category({ title, elevation }: CategoryProps) {
   
 
 
-  // if the word is longer than 3 characters replace space with newline
   const [visible, setVisible] = useState(false);
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
   
+  // if the word is longer than 3 characters replace space with newline
   const displayText = title.replace(/(\S{3,})(?=\s)/g, '$1\n');
 
   useEffect(() => {
@@ -82,19 +82,18 @@ export default function Category({ title, elevation }: CategoryProps) {
 
       const wScale = (parentWidth / textWidth) * 0.75;
       const hScale = (parentHeight / textHeight) * 0.6;
-      
 
       const rawScale = Math.min(wScale, hScale);
 
       // Find the bucket whose value is closest to rawScale:
-      const SCALE_BUCKETS = [2,3,3.5,4,5.5,6];
+      const SCALE_BUCKETS = [2,2.5,3,3.5,4,5.5,6];
       const snapped = SCALE_BUCKETS.reduce((prev, curr) =>
         // choose the bucket that is closest to rawScale
         Math.abs(curr - rawScale) < Math.abs(prev - rawScale) ? curr : prev
       );
 
       setScale(snapped);
-      console.log(`Scaling text: ${title} to ${snapped}, rawScale: ${rawScale}, buckets: ${SCALE_BUCKETS}`);
+
        // Make visible next frame 
        // (this prevents you seeing it scale)
       requestAnimationFrame(() => {

@@ -36,9 +36,13 @@ interface ClueItem {
 type RoundType = ClueItem[];
 
 interface Game {
+  title: string;
   jeopardy_round: RoundType;
   double_jeopardy_round: RoundType;
   final_jeopardy_round: RoundType;
+  current_game: number;
+  next_game: number;
+  prev_game: number;
 }
 
 // lookup table for portrait mode grid layout
@@ -53,7 +57,7 @@ const portraitMode = [[0,0], [0,1], [0,2], [6,0], [6,1], [6,2],
                       [5,0], [5,1], [5,2], [11,0], [11,1], [11,2]];
 
 
-let newestShow = 1; // global variable to keep track of the current show number
+
 /**
  * BoardHeader component displays the game board header for a Jeopardy-style game.
  *
@@ -74,22 +78,23 @@ export default function BoardHeader() {
   const [loading, setLoading] = useState(true);
   const [game, setGame] = useState<Game | null>(null);
   const [round, setRound] = useState<'jeopardy_round' | 'double_jeopardy_round' | 'final_jeopardy_round'>('jeopardy_round');
-  const [show, setShow] = useState(1);
-
+  const [gameID, setGameID] = useState(-1);
+  const [showInput, setShowInput] = useState<string>('');
+  
   const isLandscape = useMediaQuery('(orientation: landscape)', { noSsr: true });
-  async function fetchNewest() {
-  }
+
   // automatically update the game data when the component mounts
   useEffect(() => {
     async function fetchGame() {
       setLoading(true);
-      try{
-        const res = await fetch(`jeopardy/api/game?show=${show}`);
-        const data = await res.json();
-        
-
+      try {
+        const res = await fetch(`jeopardy/api/game?gameID=${gameID}`);
+        const data = await res.json(); 
         setGame(data);
         setRound('jeopardy_round');
+        const m = data.title?.match(/Show #(\d+)/);
+        setShowInput(m ? m[1] : '');
+
         setLoading(false);
       } catch (error) {
         console.log('Error fetching game data:', error);
@@ -97,13 +102,36 @@ export default function BoardHeader() {
     }
 
     fetchGame();
-  }, [show]);
+  }, [gameID]);
 
+  async function fetchShow(num: number) {
+    if (num == -1) {
+      setGameID(-1);
+      return;
+    }
+    try{
+        setLoading(true);
+        const res = await fetch(`jeopardy/api/game?show=${num}`);
+        const data = await res.json();
+
+        setGame(data);
+        setRound('jeopardy_round');
+        setLoading(false);
+      } catch (error) {
+        console.log('Error fetching game data:', error);
+      }
+  }
+
+ 
   const categories = game?.[round] ? Object.keys(game[round]) : [];
   let values: ClueProps[] = game?.[round] ? Object.values(game[round]) : [] as RoundType;
   let finalCat = '';
   let finalValue: ClueProps | null = null;
   const clueRows = (round === 'final_jeopardy_round') ? 1 : 5;
+
+
+  
+
 
   values = transpose(values).flat() as ClueProps[];
   if (game && round === 'final_jeopardy_round') {
@@ -113,6 +141,25 @@ export default function BoardHeader() {
     finalCat = Object.keys(game[round])[0];
   }
 
+
+  function gotToNextGame(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    if (game == null || game.next_game == null) return;
+    const nextGameID = game.next_game;
+    
+    if (!isNaN(nextGameID)) {
+      setGameID(nextGameID);
+    }
+  }
+
+   function gotToPrevGame(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    if (game == null || game.prev_game == null) return;
+    const prevGameID = game.prev_game;
+ 
+    if (!isNaN(prevGameID)) {
+      setGameID(prevGameID);
+    }
+  }
+  
 
   return (
     
@@ -128,7 +175,6 @@ export default function BoardHeader() {
     paddingTop: 0,
     pb: "5px",
   }}>
-
 
   {/* Tabs / Controls */}
   <Box sx={{ flexShrink: 0, pb: 2 , width: '100%'}}>
@@ -182,7 +228,7 @@ export default function BoardHeader() {
               '@media (orientation: portrait)': {
                 display: 'none',
               }, 
-             justifyContent: 'center'
+              justifyContent: 'center'
             }}>
               
               {/* Header */}
@@ -223,29 +269,29 @@ export default function BoardHeader() {
                   }
                 }}
                 
-                placeholder={show.toString()}
-                defaultValue={show}
+                value={showInput}
 
                 startAdornment={
-                  <InputAdornment position="start" sx={{'@media (max-width:600px)': {display: 'none'}}}>
-                    Game #
+                  <InputAdornment position="start" sx={{'@media (max-width:500px)': {display: 'none'}}}>
+                    Game:
                   </InputAdornment>
                 }
+                onChange={e => setShowInput(e.target.value)} // let the user type
                 onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
                   if (event.key !== "Enter") return;
                   event.preventDefault();
                   // make sure its a number before submitting
-                  const newValue = (event.target as HTMLInputElement).value;
-                  if (!isNaN(Number(newValue))) {
-                    setShow(Number(newValue));
+                  const num = Number(showInput);
+                  if (!isNaN(num)) {
+                    fetchShow(num);
                   } else {
-                    (event.target as HTMLInputElement).value = show.toString(); // reset to current show if invalid
+                    // (event.target as HTMLInputElement).value = show; // reset to current show if invalid
                   }
                 }}
               />
             </Paper>
-            <Button variant="text" sx={{color: "white"}}><ArrowBackIosIcon /></Button>
-            <Button variant="text" sx={{color: "white"}}><ArrowForwardIosIcon /></Button>
+            <Button variant="text" sx={{color: "white"}} disabled={game?.prev_game == null} onClick={gotToPrevGame}><ArrowBackIosIcon /></Button>
+            <Button variant="text" sx={{color: "white"}} disabled={game?.next_game == null} onClick={gotToNextGame}><ArrowForwardIosIcon /></Button>
           </Box>
         </Box>
   </Box>
