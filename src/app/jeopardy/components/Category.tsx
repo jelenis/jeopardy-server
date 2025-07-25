@@ -96,7 +96,6 @@ export default function Category({ title, elevation }: CategoryProps) {
        // Make visible next frame 
        // (this prevents you seeing it scale)
       requestAnimationFrame(() => {
-
         setVisible(true);
       });
     });

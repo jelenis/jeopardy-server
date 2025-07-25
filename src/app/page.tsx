@@ -182,8 +182,8 @@ export default function Page() {
                   {
                     title: 'Jeopardy Simulator',
                     description: `An interactive Jeopardy! web app built with React, Next.js, and 
-                    Material UI. It leverages the jeopardy‑json npm package 
-                    to pull real show data—categories, clues, and answers for an authentic game‑show experience.`,
+                    Material UI. It leverages jeopardy-json
+                    to pull real categories, clues, and answers for an authentic game-show experience.`,
                     thumbnail: '/images/jeopardy2.png',
                     href: "/jeopardy"
                   }, 
@@ -205,7 +205,7 @@ export default function Page() {
               <ContentList projects={[
                   {
                     title: 'Low Power Keyword Spotting',
-                    description: 'Personal site built with Next.js & Material UI to showcase projects and blog posts.',
+                    description: 'Personal site built with Next.js & Material UI to showcase projects and blog posts.',
                     thumbnail: '/images/lpk.gif',
                     href: "https://ieeexplore.ieee.org/document/9255693"
                   },

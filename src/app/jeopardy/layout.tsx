@@ -7,7 +7,7 @@ import { Box, CssBaseline } from '@mui/material';
 
 
 export const metadata: Metadata = {
-  title: "John Elenis",
+  title: "jeopardy (unoffical)",
   description: "",
 };
 
@@ -25,6 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" >
+      <link rel="icon" href="/favicon.ico" sizes="any" />
       <body  >
         <AppRouterCacheProvider>
      
