@@ -1,13 +1,14 @@
 
 import React from 'react';
-import { Box, CardMedia, Card, CardContent, Typography, CardActions, Button, CardActionArea, Divider } from '@mui/material';
-
+import { Box, CardMedia, Card, CardContent, Typography,  CardActionArea,  } from '@mui/material';
+import NextLink from 'next/link';
 
 
 interface Project {
   thumbnail: string;
   title: string;
   description: string;
+  href?: string;
 }
 
 interface ContentListProps {
@@ -23,7 +24,6 @@ export default function ContentList({ projects }: ContentListProps) {
       '& > :last-child': {
         mb: 2,           // theme.spacing(2) → 16px
       },
-     
     }}
   >
     {projects.map((p, i) => (
@@ -42,7 +42,7 @@ export default function ContentList({ projects }: ContentListProps) {
           borderRadius: "10px 10px",
           border: "1px solid rgba(0,0,0,0.1)"
         }}>
-          <CardActionArea sx={{ }}>
+          <CardActionArea component="a" href={p.href} >
             <CardMedia
               sx={{ height: 140 }}
               image={p.thumbnail}
@@ -57,15 +57,9 @@ export default function ContentList({ projects }: ContentListProps) {
               </Typography>
             </CardContent>
           </CardActionArea>
+         
         </Card>
-        {/* {i < projects.length - 1 && (
-      <Divider sx={{ my: 2 }} />
-    )} */}
-
       </Box>
-
-
-
     ))}
   </Box>
   );
