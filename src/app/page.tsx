@@ -187,7 +187,7 @@ export default function Page() {
                     description: `An interactive Jeopardy! web app built with React, Next.js, and 
                     Material UI. It leverages the jeopardy‑json npm package 
                     to pull real show data—categories, clues, and answers for an authentic game‑show experience.`,
-                    thumbnail: '/images/jeopardy.png',
+                    thumbnail: '/images/jeopardy2.png',
                   }, 
                   {
                     title: 'jeopardy-json',
