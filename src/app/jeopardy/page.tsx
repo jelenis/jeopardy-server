@@ -185,7 +185,7 @@ export default function BoardHeader() {
       <Box sx={{ flexShrink: 0, pb: 2, width: '100%' }}>
         <Box sx={{ bgcolor: "primary.main", }}>
           <Box sx={{}} display="flex" justifyContent="space-between" alignItems="center">
-            <Tabs
+            <Tabs 
               indicatorColor="primary"
               onChange={(e, val) => {
                 setRound(val);
@@ -341,7 +341,7 @@ export default function BoardHeader() {
             {!finalCat && (
               Array.from({ length: 6 }).map((_, idx) => (
                 <CategoryCell
-                  key={idx}
+                  key={loading ? idx : categories[idx]}
                   index={idx}
                   isLoading={loading}
                   title={loading ? '' : categories[idx]}
@@ -383,9 +383,10 @@ export default function BoardHeader() {
                   row = portraitMode[idx + 6][0] + 1; // +1 because grid starts at 1
                   col = portraitMode[idx + 6][1] + 1;
                 }
+                const key = `${round}-${idx}`; // ensures remount on tab change
                 return (
                   <Box
-                    key={idx}
+                    key={key}
                     sx={{
                       gridRow: row,
                       gridColumn: col,

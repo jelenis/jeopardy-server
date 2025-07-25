@@ -49,6 +49,7 @@ export default function Category({ title, elevation }: CategoryProps) {
   // if the word is longer than 3 characters replace space with newline
   const displayText = title.replace(/(\S{3,})(?=\s)/g, '$1\n');
 
+
   useEffect(() => {
     function handleResize() {
       setWindowSize({
@@ -63,7 +64,11 @@ export default function Category({ title, elevation }: CategoryProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  
+  useEffect(() => {
+    console.log("here")
+    setScale(1);
+    setVisible(false);
+  }, [title]);
 
   useEffect(() => {
     const el = textRef.current;
@@ -91,15 +96,19 @@ export default function Category({ title, elevation }: CategoryProps) {
        // Make visible next frame 
        // (this prevents you seeing it scale)
       requestAnimationFrame(() => {
+
         setVisible(true);
       });
     });
   }, [ windowSize, displayText]);
 
+ 
+
   return (
     <Paper
       elevation={elevation}
       sx={{
+       
         width: '100%',
         height: '100%',
         maxWidth: '100%',
@@ -120,17 +129,16 @@ export default function Category({ title, elevation }: CategoryProps) {
        
           ref={textRef}
           sx={{
-            opacity: visible ? 1 : 0,
+             opacity: visible ? 1 : 0,
             transform: `scale(${scale})`,
             display: 'inline-block',
             width: 'auto',   
-            // padding: 1,
           }}
         >
           <Typography
             sx={{
-              // fontSize: 'clamp(0.1rem, min(2.8vw, 2.8vh), 1.8vw)',
-              fontSize: '0.1em',
+            
+              fontSize: '1px',
               fontWeight: 'bold',
               color: 'white',
               textAlign: 'center',
