@@ -174,9 +174,9 @@ const split = displayText.split("\n");
               fontWeight: 'bold',
               color: 'white',
               textAlign: 'center',
-              lineHeight: {xs:'1.25em', md: 'normal'},
+              lineHeight: {xs:'1.25em', md: '1.1em'},
               mb: { md: '1px'},
-              mt: {xs:'1px', md: 0}
+              mt: {xs:'1px', md: '1px'}
             }}
           >
           {displayText.split('\n').map((line, i) => (
