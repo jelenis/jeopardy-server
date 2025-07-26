@@ -174,7 +174,7 @@ const split = displayText.split("\n");
               fontWeight: 'bold',
               color: 'white',
               textAlign: 'center',
-              lineHeight: {xs:'1.25em', md: '1.1em'},
+              lineHeight: {xs:'1.25em', lg: '1.1em'},
               mb: { md: '1px'},
               mt: {xs:'1px', md: '1px'}
             }}
