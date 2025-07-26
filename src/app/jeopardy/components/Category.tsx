@@ -48,24 +48,43 @@ export default function Category({ title, elevation }: CategoryProps) {
   
   // if the word is longer than 3 characters replace space with newline
 
-let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
-  const split = displayText.split("\n");
+let displayText = title.replace(/(\S{1,})\s+/g, '$1\n');
+const split = displayText.split("\n");
 
-  if (split.length > 3) {
-    // try and merge some 
-    let groups = [split[0]];
-     for (let i=1; i < split.length; i ++) {
-        if (split[i].length + groups[groups.length - 1].length < 8) {
-          groups[groups.length - 1] = groups[groups.length - 1] + " " + split[i]
-        } else {
-          groups.push(split[i])
-        }
-     }
-     displayText = groups.join("\n");
-  } else {
+
+  let res: string[][] = [];
+  const dfs = function(idx: number, path: string[]) {
+    if (idx == split.length) {
+      res.push(path.slice());
+      return;
+    }
+      path.push(split[idx]);
+      dfs(idx + 1, path);
+      path.pop();
+
+    if (path.length > 0 && path[path.length -1].length + split[idx].length < 8) {
+      path[path.length - 1] += " " + split[idx];
+      dfs(idx + 1, path)
+    }
     
   }
-  
+
+  dfs(0,[]);
+  let best = Infinity;
+  let bestValue = res[0];
+  // determine which block of text has the smallest area
+  for (let i=0; i < res.length; i++) {
+    const maxLine = Math.max(...res[i].map(x => x.length));
+    let squarness = res[i].length * maxLine;
+    if ( squarness < best) {
+      best = squarness;
+      bestValue = res[i]
+     
+    }
+  }
+  displayText = bestValue.join("\n")
+
+
 
   useEffect(() => {
     function handleResize() {
