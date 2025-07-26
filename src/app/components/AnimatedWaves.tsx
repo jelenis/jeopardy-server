@@ -9,10 +9,10 @@ export default function AnimatedWaves() {
         xmlns="http://www.w3.org/2000/svg"
         sx={{ 
             height: {
-            xs: '3rem',
+            xs: '4rem',
             md: 'auto',
           },
-          transform:  {xs: "scaleY(3)" , md: "none"},
+          transform:  {xs: "scaleY(4)" , md: "none"},
           width: '100%',  display: 'block' }}
       >
         <defs>
