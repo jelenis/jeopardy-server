@@ -36,7 +36,7 @@ export default function AnimatedWaves() {
         >
           <animate
             attributeName="d"
-            dur="16s"
+            dur="60s"
             repeatCount="indefinite"
             calcMode="spline"
             keyTimes="0;0.1;0.2;0.3;0.4;0.5;0.6;0.7;0.8;0.9;1"
