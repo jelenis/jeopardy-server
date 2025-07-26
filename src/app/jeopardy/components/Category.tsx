@@ -157,12 +157,14 @@ let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
               color: 'white',
               textAlign: 'center',
               lineHeight: `normal`,
+              mb: "1px"
             }}
           >
           {displayText.split('\n').map((line, i) => (
             <React.Fragment key={i}>
-              {line}
-              <br />
+              <span style={{display: "block"}}>
+                {line}
+              </span>
             </React.Fragment>
           ))}
           </Typography>
