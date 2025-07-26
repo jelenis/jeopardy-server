@@ -47,8 +47,24 @@ export default function Category({ title, elevation }: CategoryProps) {
   });
   
   // if the word is longer than 3 characters replace space with newline
-  const displayText = title.replace(/(\S{3,})(?=\s)/g, '$1\n');
 
+let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
+  const split = displayText.split("\n");
+
+  if (split.length > 3) {
+    // try and merge some 
+    let groups = [split[0]];
+     for (let i=1; i < split.length; i ++) {
+        if (split[i].length + groups[groups.length - 1].length < 8) {
+          groups[groups.length - 1] = groups[groups.length - 1] + " " + split[i]
+        } else {
+          groups.push(split[i])
+        }
+     }
+       console.log(groups)
+     displayText = groups.join("\n");
+  }
+  
 
   useEffect(() => {
     function handleResize() {
@@ -87,10 +103,11 @@ export default function Category({ title, elevation }: CategoryProps) {
       const parentHeight = parent.offsetHeight;
 
       const wScale = (parentWidth / textWidth) * 0.75;
-      const hScale = (parentHeight / textHeight) * 0.6;
+      const hScale = (parentHeight / textHeight) * 0.75;
 
-      const rawScale = Math.min(wScale, hScale);
-
+      const rawScale = Math.min(wScale, hScale, 3);
+      
+      console.log(rawScale)
       setScale(Math.round(rawScale * 10) / 10);
 
        // Make visible next frame 
@@ -137,11 +154,11 @@ export default function Category({ title, elevation }: CategoryProps) {
           <Typography
             sx={{
             
-              fontSize: '1px',
+              fontSize: '1rem',
               fontWeight: 'bold',
               color: 'white',
               textAlign: 'center',
-              lineHeight: 1.1,
+              lineHeight: 'normal',
               whiteSpace: "pre-wrap",
               overflowWrap: 'break-word',
             }}
