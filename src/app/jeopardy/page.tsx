@@ -336,6 +336,7 @@ export default function BoardHeader() {
               gridTemplateRows: isLandscape ? 'repeat(6, 1fr)' : 'repeat(12, 1fr)',
               gap: 'clamp(0rem, min(2vw, 2vh), 3.1rem)',
               boxSizing: 'border-box',
+              width:  isLandscape ? "unset": "85%"
             }}
           >
             {!finalCat && (

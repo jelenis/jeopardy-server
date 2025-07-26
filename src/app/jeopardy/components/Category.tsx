@@ -61,7 +61,6 @@ let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
           groups.push(split[i])
         }
      }
-       console.log(groups)
      displayText = groups.join("\n");
   }
   
@@ -81,7 +80,6 @@ let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
   }, []);
 
   useEffect(() => {
-    console.log("here")
     setScale(1);
     setVisible(false);
   }, [title]);
@@ -107,7 +105,6 @@ let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
 
       const rawScale = Math.min(wScale, hScale, 3);
       
-      console.log(rawScale)
       setScale(Math.round(rawScale * 10) / 10);
 
        // Make visible next frame 
