@@ -46,8 +46,7 @@ export default function Category({ title, elevation }: CategoryProps) {
     height: window.innerHeight,
   });
   
-  // if the word is longer than 3 characters replace space with newline
-
+ 
 let displayText = title.replace(/(\S{1,})\s+/g, '$1\n');
 const split = displayText.split("\n");
 
@@ -175,7 +174,7 @@ const split = displayText.split("\n");
               fontWeight: 'bold',
               color: 'white',
               textAlign: 'center',
-              lineHeight: `normal`,
+              lineHeight: `0`,
               mb: "1px"
             }}
           >
