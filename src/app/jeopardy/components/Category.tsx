@@ -156,8 +156,7 @@ let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
               fontWeight: 'bold',
               color: 'white',
               textAlign: 'center',
-              lineHeight: 'normal',
-              overflowWrap: 'none',
+              lineHeight: `normal`,
             }}
           >
           {displayText.split('\n').map((line, i) => (
