@@ -325,7 +325,7 @@ export default function BoardHeader() {
 
       {/* Grid Area */}
       <NoSsr>
-        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', overflow: isLandscape ? 'hidden' : 'auto' }}>
+        <Box sx={{  flex: "1", display: 'flex', justifyContent: 'center', overflowY: isLandscape ? 'hidden' : 'auto' }}>
           {/* Main grid container */}
           <Box
             sx={{
@@ -336,7 +336,8 @@ export default function BoardHeader() {
               gridTemplateRows: isLandscape ? 'repeat(6, 1fr)' : 'repeat(12, 1fr)',
               gap: 'clamp(0rem, min(2vw, 2vh), 3.1rem)',
               boxSizing: 'border-box',
-              width:  isLandscape ? "unset": "85%"
+              width:  isLandscape ? "auto": "75%", 
+              
             }}
           >
             {!finalCat && (
@@ -354,19 +355,16 @@ export default function BoardHeader() {
               /* FINAL JEOPARDY: one big cell spanning both rows */
               <Box
                 sx={{
-                  gridRow: isLandscape ? '2 / span 2' : '3 / span 3',
-                  gridColumn: isLandscape ? '3 / span 2' : '1 / span 3',
+                  gridRow: isLandscape ? '2 / span 2' : '2 / span 6',
+                  gridColumn: isLandscape ? '3 / span 2' : '1 / span 4',
                   bgcolor: 'primary.main',
                   color: 'white',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: '100%',
                   height: '100%',
                   boxSizing: 'border-box',
-                }}
-              >
-
+                }}>
                 {
                   /* there should always be a final value but just incase show loading skeleton */
                   loading || !finalValue

@@ -62,6 +62,8 @@ let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
         }
      }
      displayText = groups.join("\n");
+  } else {
+    
   }
   
 
@@ -103,7 +105,7 @@ let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
       const wScale = (parentWidth / textWidth) * 0.75;
       const hScale = (parentHeight / textHeight) * 0.75;
 
-      const rawScale = Math.min(wScale, hScale, 3);
+      const rawScale = Math.min(wScale, hScale, 25);
       
       setScale(Math.round(rawScale * 10) / 10);
 
@@ -121,7 +123,6 @@ let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
     <Paper
       elevation={elevation}
       sx={{
-       
         width: '100%',
         height: '100%',
         maxWidth: '100%',
@@ -132,7 +133,7 @@ let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'primary.main',
-        aspectRatio: '1.3 / 1', // Adjust aspect ratio as needed
+        aspectRatio: '1.3 / 1', 
       }}
     >
 
@@ -146,21 +147,25 @@ let displayText = title.replace(/(\S{3,})\s+/g, '$1\n');
             transform: `scale(${scale})`,
             display: 'inline-block',
             width: 'auto',   
+            
           }}
         >
           <Typography
             sx={{
-            
-              fontSize: '1rem',
+              fontSize: '0.1rem',
               fontWeight: 'bold',
               color: 'white',
               textAlign: 'center',
               lineHeight: 'normal',
-              whiteSpace: "pre-wrap",
-              overflowWrap: 'break-word',
+              overflowWrap: 'none',
             }}
           >
-            {displayText}
+          {displayText.split('\n').map((line, i) => (
+            <React.Fragment key={i}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))}
           </Typography>
         </Box>
     </Paper>
