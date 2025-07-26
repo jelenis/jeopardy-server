@@ -85,9 +85,10 @@ export default function Page() {
        <Box sx={{
           display: 'flex',
           direction: "row",
-          justifyContent: 'center',
-          width: {xs: "auto", md:'29%'},
-          ml: 2}}>
+          justifyContent: {xs: "center", md:'left'},
+
+          ml: {md: "8rem"} // midpoint of John Elenis 
+        }}>
         <ProfileImage/>
         </Box>
           <Box sx={{
@@ -122,12 +123,17 @@ export default function Page() {
                   pl: 1,
                   fontFamily: "var(--font-knewave)",
                   color: 'primary.main',
-                  fontSize: {xs: '3.2rem', sm:'4rem'}
+                  fontSize: {xs: '3.2rem', sm:'4rem'},
+                  textAlign: {xs: "center" , md: "left"}
                 }}>
                   John <Box component="span" >Elenis</Box>
                 </Typography>
 
-                <Typography variant='h5' noWrap sx={{ color: 'text.secondary' }}>
+                <Typography variant='h5' noWrap 
+                sx={{ color: 'text.secondary',
+                  textAlign: {xs: "center" , md: "left"}
+                 }}
+                >
                   Junior Software Developer
                 </Typography>
 
