@@ -143,7 +143,11 @@ export default function Page() {
                   mt: 2,
                   pb: 2,
                 }}>
-                  <Button variant='contained'
+                  <Button 
+                    component="a"
+                    href="/resume.pdf"
+                    download="John_Elenis_Resume.pdf"
+                    variant='contained'
                     sx={{
                       bgcolor: 'primary.main',
                       borderRadius: '32px 32px',
@@ -151,7 +155,9 @@ export default function Page() {
                       fontFamily: 'var(--font-montserrat)',
                       fontWeight: 400,
                       mr: { xs: "15px", md: 0 }
-                    }}>Resume </Button>
+                    }}>
+                      Resume 
+                    </Button>
 
                   <SocialLinks />
                 </Box>
