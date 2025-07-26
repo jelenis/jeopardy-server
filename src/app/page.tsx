@@ -11,6 +11,7 @@ import ProfileImage from './components/ProfileImage';
 import ContentList from './components/ContentList';
 import ContentHeader from './components/ContentHeader';
 import NextLink from 'next/link';
+import { Visibility } from '@mui/icons-material';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -78,7 +79,7 @@ export default function Page() {
   return (
     <div>
 
-      <AnimatedWaves />
+      <AnimatedWaves  />
 
       <Container className={`${poppins.variable} ${montserrat.variable} ${knewave.variable} ${lobster.variable}`} >
         <ThemeProvider theme={theme}>

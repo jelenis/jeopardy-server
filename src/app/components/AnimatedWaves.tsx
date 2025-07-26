@@ -4,10 +4,16 @@ import { Box } from '@mui/material';
 export default function AnimatedWaves() {
   return (
     <Box sx={{ width: '100%', overflow: 'hidden', lineHeight: 0, opacity: 1 }}>
-      <svg
+      <Box component="svg"
         viewBox="0 0 1440 80"
         xmlns="http://www.w3.org/2000/svg"
-        style={{ width: '100%', height: 'auto', display: 'block' }}
+        sx={{ 
+            height: {
+            xs: '3rem',
+            md: 'auto',
+          },
+          transform:  {xs: "scaleY(3)" , md: "none"},
+          width: '100%',  display: 'block' }}
       >
         <defs>
           {/* 34° diagonal gradient from #219ebc → #25b6d9 */}
@@ -61,7 +67,7 @@ export default function AnimatedWaves() {
             "
           />
         </path>
-      </svg>
+      </Box>
     </Box>
   );
 }
