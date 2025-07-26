@@ -124,7 +124,7 @@ const split = displayText.split("\n");
       const wScale = (parentWidth / textWidth) * 0.75;
       const hScale = (parentHeight / textHeight) * 0.75;
 
-      const rawScale = Math.min(wScale, hScale, 25);
+      const rawScale = Math.min(wScale, hScale, 20);
       
       setScale(Math.round(rawScale * 10) / 10);
 
