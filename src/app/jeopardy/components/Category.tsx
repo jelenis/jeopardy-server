@@ -174,13 +174,13 @@ const split = displayText.split("\n");
               fontWeight: 'bold',
               color: 'white',
               textAlign: 'center',
-              lineHeight: `0`,
-              mb: "1px"
+              lineHeight: {xs:'1.25em', md: 'normal'},
+              mb: { md: '1px'}
             }}
           >
           {displayText.split('\n').map((line, i) => (
             <React.Fragment key={i}>
-              <span style={{display: "block"}}>
+              <span style={{display: "block",}}>
                 {line}
               </span>
             </React.Fragment>
