@@ -229,7 +229,7 @@ export default function Page() {
                 },
                 {
                   title: 'jeopardy-json',
-                  description: `A lightweight Node.js package that fetches and converts Jeopardy! game data from the J! Archive into structured, readable JSON`,
+                  description: `A lightweight Node.js package that fetches and converts Jeopardy! games from the J! Archive into structured, readable JSON`,
                   thumbnail: '/images/jeopardy-json.png',
                   href: "https://github.com/jelenis/jeopardy-json/tree/main"
                 },
