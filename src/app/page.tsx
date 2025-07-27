@@ -5,13 +5,12 @@ import { Container, Box, Typography, Button, Link } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AnimatedWaves from './components/AnimatedWaves';
 
-import { Poppins, Montserrat, Dancing_Script, Lobster, Knewave } from 'next/font/google'
+import { Poppins, Montserrat, Lobster, Urbanist } from 'next/font/google'
 import SocialLinks from './components/SocialLinks';
 import ProfileImage from './components/ProfileImage';
 import ContentList from './components/ContentList';
 import ContentHeader from './components/ContentHeader';
 import NextLink from 'next/link';
-import { Visibility } from '@mui/icons-material';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -27,12 +26,16 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
 });
 
-const knewave = Knewave({
-  subsets: ['latin'],
-  weight: ['400',],
-  display: 'swap',
+const knewave = Urbanist({
+  subsets: ["latin"],
+  weight: [
+    "100", "200", "300", "400", "500", "600", "700", "800", "900"
+  ],
+  style: ["normal", "italic"],
+  display: "swap",
   variable: '--font-knewave',
 });
+
 const lobster = Lobster({
   subsets: ['latin'],
   weight: ['400'],
@@ -60,14 +63,14 @@ const theme = createTheme({
     fontFamily: 'var(--font-poppins), var(--font-montserrat), sans-serif',
 
     h4: { fontSize: "3rem", fontFamily: 'var(--font-poppins)', fontWeight: 600 },
-    h5: { fontSize: "1.5rem", fontFamily: 'var(--font-montserrat)', fontWeight: 300 },
+    h5: { fontSize: "1.2rem", fontFamily: 'var(--font-montserrat)', fontWeight: 500 },
     h6: { fontSize: "1.1rem", fontFamily: 'var(--font-montserrat)' }
   },
 })
 
 
 // Highlight component for emphasizing text with primary color and bold font
-const Highlight = ({ children }: 
+const Highlight = ({ children }:
   { children: React.ReactNode }) => (
   <Typography sx={{ color: "primary.main", fontWeight: 600 }} component="span">
     {children}
@@ -79,19 +82,19 @@ export default function Page() {
   return (
     <div>
 
-      <AnimatedWaves  />
+      <AnimatedWaves />
 
       <Container className={`${poppins.variable} ${montserrat.variable} ${knewave.variable} ${lobster.variable}`} >
         <ThemeProvider theme={theme}>
-       <Box sx={{
-          display: 'flex',
-          direction: "row",
-          justifyContent: {xs: "center", md:'left'},
-
-          ml: {md: "8rem"} // midpoint of John Elenis 
-        }}>
-        <ProfileImage/>
-        </Box>
+          <Box sx={{
+            display: 'flex',
+            direction: "row",
+            justifyContent: { xs: "center", md: 'left' },
+            mb: '1rem',
+            ml: { md: "7rem" } // midpoint of John Elenis 
+          }}>
+            <ProfileImage />
+          </Box>
           <Box sx={{
             display: 'flex',
             alignItems: 'flex-start',
@@ -113,32 +116,56 @@ export default function Page() {
                 display: { xs: "flex", md: "block" },
                 flexDirection: { xs: "column" },
                 alignItems: { xs: "center" },
+
               }}
             >
-              <Box 
-              sx={{
-                display: "inline-flex",
-                flexDirection: "column",}}>
-                <Typography  variant="h3" noWrap fontWeight={100} sx={{
-                  // textShadow: "2px 2px 0px #00000014", 
-                  pl: 1,
-                  fontFamily: "var(--font-knewave)",
-                  color: 'primary.main',
-                  fontSize: {xs: '3.2rem', sm:'4rem'},
-                  textAlign: {xs: "center" , md: "left"}
+              <Box
+                sx={{
+                  display: "inline-flex",
+                  flexDirection: "column",
+                  maxWidth: '100%'
                 }}>
-                  John <Box component="span" >Elenis</Box>
-                </Typography>
+                <Box sx={{
+           
+                }}>
 
-                <Typography variant='h5' noWrap 
-                sx={{ color: 'text.secondary',
-                  textAlign: {xs: "center" , md: "left"}
-                 }}
-                >
-                  Junior Software Developer
-                </Typography>
+                  <Typography variant="h3" noWrap fontWeight={100} sx={{
+                    // textShadow: "2px 2px 0px #00000014", 
 
-                <Typography variant='h6' noWrap sx={{ color: 'text.secondary', mt: 2, display: {xs: "none", md: "block"}}}>
+                    fontFamily: "var(--font-knewave)",
+                    color: 'primary.main',
+                    fontSize: { xs: '4rem', sm: '5rem' },
+                    textAlign: { xs: "center", md: "left" },
+                    fontWeight: "700",
+                    letterSpacing: "-0.17rem",
+                    // fontStyle: "italic",
+                    lineHeight: { xs: '3.2rem', sm: '4.8rem' },
+                    backgroundImage: 'url("/gradient.svg")',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+
+                  }}>
+
+                    John <Box component="span" >Elenis</Box>
+                  </Typography>
+
+                  <Typography variant='h5' noWrap
+                    sx={{
+                      color: 'rgb(0 0 0 / 35%)',
+                      textAlign: {
+                        xs: "center", md: "left",
+                        letterSpacing: '0.25rem',
+                        fontSize: { xs: '1.1rem', sm: '1.1rem' }
+                      }
+                    }}
+                  >
+                    Junior Software Developer
+                  </Typography>
+
+                </Box>
+                <Typography variant='h6' noWrap sx={{ whiteSpace: 'normal', color: 'text.secondary', mt: 2, display: { xs: "none", md: "block" } }}>
                   Want to know more? My resume covers <br />
                   my work experience  and time in grad school.
                 </Typography>
@@ -150,7 +177,7 @@ export default function Page() {
                   mt: 2,
                   pb: 2,
                 }}>
-                  <Button 
+                  <Button
                     component="a"
                     href="/resume.pdf"
                     download="John_Elenis_Resume.pdf"
@@ -163,14 +190,14 @@ export default function Page() {
                       fontWeight: 400,
                       mr: { xs: "15px", md: 0 }
                     }}>
-                      Resume 
-                    </Button>
+                    Resume
+                  </Button>
 
                   <SocialLinks />
                 </Box>
               </Box>
             </Box>
-            
+
             {/* Right Column (scrolls the page) */}
             <Box sx={{
               display: 'flex',
@@ -178,51 +205,51 @@ export default function Page() {
               width: { xs: "100%", md: "50%" }
             }}>
               {/* <ContentHeader>About</ContentHeader> */}
-             <ContentHeader >About Me</ContentHeader>
-            <Typography sx={{ color: "text.secondary",  mb: 2, fontWeight: 100}}>
-              I’m a Systems Engineering
-              graduate with hands‑on experience in both <Highlight>full-stack development </Highlight> 
-              and <Highlight >embedded systems</Highlight>.
-              After stepping away for a bit, I’m now eager to jump back into the tech world and put my skills to work.
-            </Typography>
-            <Typography sx={{ color: "text.secondary", mb: 3,  fontWeight: 100}}>
-              Check out some of my personal projects below. You can also find more on my {' '}
-              <Link component={NextLink} href="https://github.com/jelenis">GitHub</Link>
-               {' '}or connect with me on <Link component={NextLink} href="https://www.linkedin.com/in/john-anthony-elenis"> LinkedIn</Link>!
-            </Typography>
+              <ContentHeader >About Me</ContentHeader>
+              <Typography sx={{ color: "text.secondary", mb: 2, fontWeight: 100 }}>
+                I’m a Systems Engineering
+                graduate with hands‑on experience in both <Highlight>full-stack development </Highlight>
+                and <Highlight >embedded systems</Highlight>.
+                After stepping away for a bit, I’m now eager to jump back into the tech world and put my skills to work.
+              </Typography>
+              <Typography sx={{ color: "text.secondary", mb: 3, fontWeight: 100 }}>
+                Check out some of my personal projects below. You can also find more on my {' '}
+                <Link component={NextLink} href="https://github.com/jelenis">GitHub</Link>
+                {' '}or connect with me on <Link component={NextLink} href="https://www.linkedin.com/in/john-anthony-elenis"> LinkedIn</Link>!
+              </Typography>
               <ContentHeader>Projects</ContentHeader>
-                <ContentList projects={[
-                  {
-                    title: 'Jeopardy Simulator',
-                    description: `An interactive Jeopardy! web app built with React, Next.js, and 
+              <ContentList projects={[
+                {
+                  title: 'Jeopardy Simulator',
+                  description: `An interactive Jeopardy! web app built with React, Next.js, and 
                     Material UI. It leverages jeopardy-json
                     to pull real categories, clues, and answers for an authentic game-show experience.`,
-                    thumbnail: '/images/jeopardy2.png',
-                    href: "/jeopardy"
-                  }, 
-                  {
-                    title: 'jeopardy-json',
-                    description: `A lightweight Node.js package that fetches and converts Jeopardy! game data from the J! Archive into structured, readable JSON`,
-                    thumbnail: '/images/jeopardy-json.png',
-                    href: "https://github.com/jelenis/jeopardy-json/tree/main"
-                  }, 
-                  {
-                    title: 'login-manager',
-                    description: `Easily design your own Linux greeter without having to worry about the implementation.
+                  thumbnail: '/images/jeopardy2.png',
+                  href: "/jeopardy"
+                },
+                {
+                  title: 'jeopardy-json',
+                  description: `A lightweight Node.js package that fetches and converts Jeopardy! game data from the J! Archive into structured, readable JSON`,
+                  thumbnail: '/images/jeopardy-json.png',
+                  href: "https://github.com/jelenis/jeopardy-json/tree/main"
+                },
+                {
+                  title: 'login-manager',
+                  description: `Easily design your own Linux greeter without having to worry about the implementation.
                                   An event based interface for creating fully customizable Linux login themes using Lightdm's Webkit2 Greeter.`,
-                    thumbnail: '/images/example.gif',
-                    href: "https://github.com/jelenis/login-manager"
-                  },   
-                ]}></ContentList>
+                  thumbnail: '/images/example.gif',
+                  href: "https://github.com/jelenis/login-manager"
+                },
+              ]}></ContentList>
               <ContentHeader>Capstone 2019</ContentHeader>
               <ContentList projects={[
-                  {
-                    title: 'Low Power Keyword Spotting',
-                    description: 'Personal site built with Next.js & Material UI to showcase projects and blog posts.',
-                    thumbnail: '/images/lpk.gif',
-                    href: "https://ieeexplore.ieee.org/document/9255693"
-                  },
-                ]}></ContentList>
+                {
+                  title: 'Low Power Keyword Spotting',
+                  description: 'Personal site built with Next.js & Material UI to showcase projects and blog posts.',
+                  thumbnail: '/images/lpk.gif',
+                  href: "https://ieeexplore.ieee.org/document/9255693"
+                },
+              ]}></ContentList>
             </Box>
           </Box>
         </ThemeProvider>
