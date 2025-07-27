@@ -63,7 +63,7 @@ const theme = createTheme({
     fontFamily: 'var(--font-poppins), var(--font-montserrat), sans-serif',
 
     h4: { fontSize: "3rem", fontFamily: 'var(--font-poppins)', fontWeight: 600 },
-    h5: { fontSize: "1.2rem", fontFamily: 'var(--font-montserrat)', fontWeight: 500 },
+    h5: { fontFamily: 'var(--font-montserrat)', fontWeight: 500 },
     h6: { fontSize: "1.1rem", fontFamily: 'var(--font-montserrat)' }
   },
 })
@@ -139,7 +139,7 @@ export default function Page() {
                     fontWeight: "700",
                     letterSpacing: "-0.17rem",
                     // fontStyle: "italic",
-                    lineHeight: { xs: '3.2rem', sm: '4.8rem' },
+                    lineHeight: { xs: '3.8rem', sm: '4.8rem' },
                     backgroundImage: 'url("/gradient.svg")',
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat',
@@ -156,9 +156,9 @@ export default function Page() {
                       color: 'rgb(0 0 0 / 35%)',
                       textAlign: {
                         xs: "center", md: "left",
-                        letterSpacing: '0.25rem',
-                        fontSize: { xs: '1.1rem', sm: '1.1rem' }
-                      }
+                      },
+                      letterSpacing: '0.25rem',
+                      fontSize: {  xs: '1rem', sm: '1.2rem', md: '1.2rem', lg: '1.2rem'}
                     }}
                   >
                     Junior Software Developer
@@ -174,7 +174,7 @@ export default function Page() {
                   display: 'flex',
                   justifyContent: { xs: 'flex-start', md: 'space-between' },
                   alignItems: 'center',
-                  mt: 2,
+                  mt: {xs: 3, md: 2},
                   pb: 2,
                 }}>
                   <Button
