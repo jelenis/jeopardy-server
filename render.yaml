@@ -17,11 +17,14 @@ services:
     autoDeployTrigger: commit
 
   # MongoDB service
-  - type: pserv
+  - type: private_service
     name: mongodb
     env: docker
-    autoDeploy: false
+    plan: starter
+    dockerfilePath: ./Dockerfile
     disk:
-      name: data
+      name: database
       mountPath: /data/db
       sizeGB: 1
+    ports:
+      - port: 27017
