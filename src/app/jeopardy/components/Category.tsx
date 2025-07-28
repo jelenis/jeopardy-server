@@ -61,7 +61,7 @@ const split = displayText.split("\n");
       dfs(idx + 1, path);
       path.pop();
 
-    if (path.length > 0 && path[path.length -1].length + split[idx].length < 8) {
+    if (path.length > 0 && path[path.length-1].length + split[idx].length + 1 < 12) {
       path[path.length - 1] += " " + split[idx];
       dfs(idx + 1, path)
     }
@@ -69,18 +69,21 @@ const split = displayText.split("\n");
   }
 
   dfs(0,[]);
-  let best = Infinity;
+  let best = -Infinity;
   let bestValue = res[0];
   // determine which block of text has the smallest area
   for (let i=0; i < res.length; i++) {
     const maxLine = Math.max(...res[i].map(x => x.length));
-    let squarness = res[i].length * maxLine;
-    if ( squarness < best) {
-      best = squarness;
-      bestValue = res[i]
-     
+    const line = res[i];
+    
+  // penalize for difference from aspect ratio and number of lines
+   let score = -Math.abs(1.3/1 - maxLine/(2.5*line.length)) - line.length;
+    if ( score > best) {
+      best = score;
+      bestValue = res[i];
     }
   }
+  // console.log(best, bestValue)
   displayText = bestValue.join("\n")
 
 
@@ -120,8 +123,8 @@ const split = displayText.split("\n");
       const parentWidth = parent.offsetWidth;
       const parentHeight = parent.offsetHeight;
 
-      const wScale = (parentWidth / textWidth) * 0.75;
-      const hScale = (parentHeight / textHeight) * 0.75;
+      const wScale = (parentWidth / textWidth) * 0.85;
+      const hScale = (parentHeight / textHeight) * 0.85;
 
       const rawScale = Math.min(wScale, hScale, 20);
       
@@ -174,8 +177,8 @@ const split = displayText.split("\n");
               fontWeight: 'bold',
               color: 'white',
               textAlign: 'center',
-              lineHeight: {xs:'1.25em', lg: '1.1em'},
-              mb: { md: '1px'},
+              lineHeight: {xs:'1.25em', md: 'normal'},
+              mb: { md: '0.1rem'},
               mt: {xs:'1px', md: '1px'}
             }}
           >
