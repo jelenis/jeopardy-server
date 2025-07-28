@@ -9,6 +9,7 @@ import { Box, CssBaseline } from '@mui/material';
 export const metadata: Metadata = {
   title: "jeopardy (unoffical)",
   description: "",
+  viewport: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 };
 
 const roboto = Roboto({
@@ -25,6 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" >
+      
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <body  >
         <AppRouterCacheProvider>
