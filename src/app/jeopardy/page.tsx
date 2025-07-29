@@ -92,8 +92,8 @@ export default function BoardHeader() {
         const data = await res.json();
         setGame(data);
         setRound('jeopardy_round');
-        const m = data.title?.match(/Show #(\d+)/);
-        setShowInput(m ? m[1] : '');
+        
+        setShowInput(data.index);
 
         setLoading(false);
       } catch (error) {

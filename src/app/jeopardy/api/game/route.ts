@@ -52,7 +52,7 @@ export async function GET(request: Request) {
   if (gameID != null) {
     // prefer to use gameID
 
-    if (Number(gameID) == -1) {
+    if (Number(gameID) <= -1) {
       let countResult = db.prepare(`SELECT COUNT(*) as count FROM game_meta`).get() as {count: number}
       if (countResult.count) {
         let idResult = db.prepare(`SELECT game_id FROM game_meta ORDER BY id DESC LIMIT 1`).get() as {game_id: number}
@@ -99,6 +99,7 @@ export async function GET(request: Request) {
       console.log("loaded from database");
       game = JSON.parse(seen.data);
     }
+
     
   } else {
     let showNum = url.searchParams.get('show');
@@ -119,6 +120,12 @@ export async function GET(request: Request) {
       console.log("loaded from database");
       game = JSON.parse(seen.data) ;
     } else {
+      if (Number(showNum) < 0) {
+        let countResult = db.prepare(`SELECT COUNT(*) as count FROM game_meta`).get() as {count: number}
+        showNum = String(countResult.count + Number(showNum));
+        console.log("negative shownum: ", showNum)
+      }
+
       game = await Jeopardy.getGameByShow(showNum);
      
       db.prepare(`
@@ -132,6 +139,13 @@ export async function GET(request: Request) {
         JSON.stringify(game)
       );
     }
+    gameID = game.current_game;
   }
+
+    const game_meta = db.prepare(`
+    SELECT id FROM game_meta WHERE game_id = ?
+  `).get(gameID) as {id: number};
+
+    game.index = game_meta.id;
   return NextResponse.json(game); 
 }
