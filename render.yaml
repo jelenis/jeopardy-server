@@ -5,7 +5,7 @@ services:
   runtime: node
   repo: https://github.com/jelenis/jeopardy-server
   plan: starter
-  region: oregon
+  region: ohio
   buildCommand: ' npm ci && npm run build'
   startCommand: npm start
   domains:

@@ -18,8 +18,8 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
-const db = new Database(dbPath);
 console.log("using databse: ", dbPath);
+const db = new Database(dbPath);
 
 db.prepare(`
   CREATE TABLE IF NOT EXISTS games (
