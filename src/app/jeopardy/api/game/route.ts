@@ -96,6 +96,7 @@ export async function GET(request: Request) {
       );
     } else {
       // game was found
+      console.log("loaded from database");
       game = JSON.parse(seen.data);
     }
     
@@ -109,17 +110,17 @@ export async function GET(request: Request) {
     const seen = db.prepare(`
       SELECT games.data
       FROM game_meta
-      JOIN games ON game_meta.game_id = games.game_id
+      JOIN games ON game_meta.game_id = games.current_game
       WHERE game_meta.id = ?
     `).get(showNum) as {data: string};
       
     // check if show was already in the database
-    if (seen && seen.data) {
-      console.log("found", seen);
+    if (seen) {
+      console.log("loaded from database");
       game = JSON.parse(seen.data) ;
     } else {
       game = await Jeopardy.getGameByShow(showNum);
-      console.log(game.current_game)
+     
       db.prepare(`
         INSERT  OR IGNORE INTO games (title, current_game, next_game, prev_game, data)
         VALUES (?, ?, ?, ?, ?)
