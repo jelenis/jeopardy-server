@@ -19,30 +19,30 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 console.log("using databse: ", dbPath);
-const db = new Database(dbPath);
-
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS games (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT,
-    current_game INTEGER UNIQUE,
-    next_game INTEGER,
-    prev_game INTEGER,
-    data TEXT
-  )
-`).run();
-
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS game_meta (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    game_id INTEGER UNIQUE,              
-    show_number INTEGER,
-    air_date TEXT,
-    season INTEGER
-  )
-`).run();
 
 export async function GET(request: Request) {
+  
+  const db = new Database(dbPath);
+  db.prepare(`
+    CREATE TABLE IF NOT EXISTS games (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT,
+      current_game INTEGER UNIQUE,
+      next_game INTEGER,
+      prev_game INTEGER,
+      data TEXT
+    )
+  `).run();
+  
+  db.prepare(`
+    CREATE TABLE IF NOT EXISTS game_meta (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      game_id INTEGER UNIQUE,              
+      show_number INTEGER,
+      air_date TEXT,
+      season INTEGER
+    )
+  `).run();
   
   const url : URL = new URL(request.url);
   let gameID = url.searchParams.get('gameID');
