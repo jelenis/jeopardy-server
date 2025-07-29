@@ -1,0 +1,19 @@
+# Exported from Render on 2025-07-29T01:23:18Z
+services:
+- type: web
+  name: jeopardy-server
+  runtime: node
+  repo: https://github.com/jelenis/jeopardy-server
+  plan: starter
+  region: oregon
+  buildCommand: ' npm ci && npm run build'
+  startCommand: npm start
+  domains:
+  - johnelenis.ca
+  - www.johnelenis.ca
+  disk:
+    name: disk
+    mountPath: /data/db
+    sizeGB: 1
+  autoDeployTrigger: commit
+version: "1"
