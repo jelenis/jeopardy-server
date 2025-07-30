@@ -80,8 +80,21 @@ export default function BoardHeader() {
   const [round, setRound] = useState<'jeopardy_round' | 'double_jeopardy_round' | 'final_jeopardy_round'>('jeopardy_round');
   const [gameID, setGameID] = useState(-1);
   const [showInput, setShowInput] = useState<string>('');
-
+   const [visible, setVisible] = useState<number>(0);
   const isLandscape = useMediaQuery('(orientation: landscape)', { noSsr: true });
+
+  useEffect(() => {
+    const handleOrientationChange = () => {        
+      setVisible(prev => (prev+1)%2);
+    };
+
+    window.addEventListener('orientationchange', handleOrientationChange);
+
+    return () => {
+      window.removeEventListener('orientationchange', handleOrientationChange);
+    };
+  }, [game]);
+
 
   // automatically update the game data when the component mounts
   useEffect(() => {
@@ -179,7 +192,7 @@ export default function BoardHeader() {
       }}>
 
       {/* Tabs / Controls */}
-      <Box sx={{ flexShrink: 0, pb: 2, width: '100%' }}>
+      <Box sx={{ flexShrink: 0, pb: 2, width: '100%',  }}>
         <Box sx={{ bgcolor: "primary.main", }}>
           <Box sx={{}} display="flex" justifyContent="space-between" alignItems="center">
             <Tabs 
@@ -226,6 +239,7 @@ export default function BoardHeader() {
 
             <Box sx={{
               flex: 1,
+         
               display: "flex",
               // hide the title if in portrait mode
               '@media (orientation: portrait)': {
@@ -320,7 +334,7 @@ export default function BoardHeader() {
 
       {/* Grid Area */}
       <NoSsr>
-        <Box sx={{  flex: "1", display: 'flex', justifyContent: 'center', overflowY: isLandscape ? 'hidden' : 'auto' }}>
+        <Box   key={visible} sx={{  flex: "1", display: 'flex', justifyContent: 'center', overflowY: isLandscape ? 'hidden' : 'auto'}}>
           {/* Main grid container */}
           <Box
             sx={{
