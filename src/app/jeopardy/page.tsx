@@ -90,6 +90,7 @@ export default function BoardHeader() {
       try {
         const res = await fetch(`jeopardy/api/game?gameID=${gameID}`);
         const data = await res.json();
+          
         setGame(data);
         setRound('jeopardy_round');
         
@@ -105,15 +106,11 @@ export default function BoardHeader() {
   }, [gameID]);
 
   async function fetchShow(num: number) {
-    if (num == -1) {
-      setGameID(-1);
-      return;
-    }
     try {
       setLoading(true);
       const res = await fetch(`jeopardy/api/game?show=${num}`);
       const data = await res.json();
-
+ 
       setGame(data);
       setRound('jeopardy_round');
       setLoading(false);
@@ -310,9 +307,7 @@ export default function BoardHeader() {
                     const num = Number(showInput);
                     if (!isNaN(num)) {
                       fetchShow(num);
-                    } else {
-                      // (event.target as HTMLInputElement).value = show; // reset to current show if invalid
-                    }
+                    } 
                   }}
                 />
               </Paper>

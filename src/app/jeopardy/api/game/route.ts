@@ -26,28 +26,29 @@ export async function GET(request: Request) {
   db.prepare(`
     CREATE TABLE IF NOT EXISTS games (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      title TEXT,
-      current_game INTEGER UNIQUE,
-      next_game INTEGER,
-      prev_game INTEGER,
-      data TEXT
+      title TEXT NOT NULL,
+      current_game INTEGER UNIQUE NOT NULL,
+      next_game INTEGER NOT NULL,
+      prev_game INTEGER NOT NULL,
+      data TEXT NOT NULL
     )
   `).run();
   
   db.prepare(`
     CREATE TABLE IF NOT EXISTS game_meta (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      game_id INTEGER UNIQUE,              
-      show_number INTEGER,
-      air_date TEXT,
-      season INTEGER
+      game_id INTEGER UNIQUE NOT NULL,              
+      show_number INTEGER NOT NULL,
+      air_date TEXT NOT NULL,
+      season INTEGER NOT NULL
     )
   `).run();
   
+
+
   const url : URL = new URL(request.url);
   let gameID = url.searchParams.get('gameID');
   let game = null;
-
 
   if (gameID != null) {
     // prefer to use gameID
@@ -72,6 +73,7 @@ export async function GET(request: Request) {
   
         insertAll(list);
         gameID = list[list.length - 1].game_id;
+
       }
       
     } 
@@ -84,6 +86,8 @@ export async function GET(request: Request) {
 
     if (!seen) {   
       game = await Jeopardy.getGame(gameID);
+
+      
       db.prepare(`
         INSERT OR IGNORE INTO games (title, current_game, next_game, prev_game, data)
         VALUES (?, ?, ?, ?, ?)
@@ -99,9 +103,8 @@ export async function GET(request: Request) {
       console.log("loaded from database");
       game = JSON.parse(seen.data);
     }
-
-    
   } else {
+   
     let showNum = url.searchParams.get('show');
     // if not gameID get by show number
     if (isNaN(Number(showNum)) || showNum == null) {
@@ -145,7 +148,24 @@ export async function GET(request: Request) {
     const game_meta = db.prepare(`
     SELECT id FROM game_meta WHERE game_id = ?
   `).get(gameID) as {id: number};
-
+    
+  
+  //gaurd against access to games that havent been indexed yet
+  if (game_meta) {
     game.index = game_meta.id;
-  return NextResponse.json(game); 
+    const last_id = db.prepare(`
+      SELECT MAX(id) as id FROM game_meta
+    `).get() as { id: number };
+    
+    if (game_meta.id == last_id.id) {
+      game.next_game = null;
+    }
+    return NextResponse.json(game); 
+  } 
+
+  return NextResponse.json(
+    { error: 'Not in database' },
+    { status: 404 }
+  );
+  
 }
