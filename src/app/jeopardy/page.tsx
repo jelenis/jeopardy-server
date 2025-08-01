@@ -83,6 +83,8 @@ export default function BoardHeader() {
    const [visible, setVisible] = useState<number>(0);
   const isLandscape = useMediaQuery('(orientation: landscape)', { noSsr: true });
 
+
+  // reload up if screen is changed in portrait mode
   useEffect(() => {
     const handleOrientationChange = () => {        
       setVisible(prev => (prev+1)%2);
