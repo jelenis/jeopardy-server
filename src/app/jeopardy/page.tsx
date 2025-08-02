@@ -80,7 +80,9 @@ export default function BoardHeader() {
   const [round, setRound] = useState<'jeopardy_round' | 'double_jeopardy_round' | 'final_jeopardy_round'>('jeopardy_round');
   const [gameID, setGameID] = useState(-1);
   const [showInput, setShowInput] = useState<string>('');
-   const [visible, setVisible] = useState<number>(0);
+  const [visible, setVisible] = useState<number>(0);
+  const [gameError, setGameError] = useState<boolean>(false);
+
   const isLandscape = useMediaQuery('(orientation: landscape)', { noSsr: true });
 
 
@@ -113,7 +115,9 @@ export default function BoardHeader() {
 
         setLoading(false);
       } catch (error) {
-        console.log('Error fetching game data:', error);
+        setLoading(false);
+        setGame(null);
+        console.log(`Error fetching game ${gameID}`);
       }
     }
 
@@ -130,7 +134,9 @@ export default function BoardHeader() {
       setRound('jeopardy_round');
       setLoading(false);
     } catch (error) {
-      console.log('Error fetching game data:', error);
+      setLoading(false);
+      setGame(null)
+      console.log(`Error fetching game ${num}`);
     }
   }
 
@@ -336,13 +342,18 @@ export default function BoardHeader() {
 
       {/* Grid Area */}
       <NoSsr>
+
         <Box   key={visible} sx={{  flex: "1", display: 'flex', justifyContent: 'center', overflowY: isLandscape ? 'hidden' : 'auto'}}>
-          {/* Main grid container */}
+          {/* handle game error (missing or invalid game) */}
+          {game == null ? 
+            <Typography variant="h6" color="error" sx={{ textAlign: 'center', width: '100%' }}>
+              Game not found or invalid. Please check the game number.   
+            </Typography> : 
           <Box
             sx={{
               height: 'calc(100% - 46px)',
               aspectRatio: isLandscape ? '6 / 6' : '3 / 12', // 1:1 in landscape, 1:4 in portrait
-              display: 'grid',
+              display: game == null ? 'none' :'grid' ,
               gridTemplateColumns: isLandscape ? 'repeat(6, 1fr)' : 'repeat(3, 1fr)',
               gridTemplateRows: isLandscape ? 'repeat(6, 1fr)' : 'repeat(12, 1fr)',
               gap: 'clamp(0rem, min(2vw, 2vh), 3.1rem)',
@@ -419,7 +430,7 @@ export default function BoardHeader() {
                 );
               })
             )}
-          </Box>
+          </Box> }
         </Box>
       </NoSsr>
     </Container>
