@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Container, Box, Typography, Button, Link } from '@mui/material';
-
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AnimatedWaves from './components/AnimatedWaves';
 
@@ -11,6 +10,7 @@ import ProfileImage from './components/ProfileImage';
 import ContentList from './components/ContentList';
 import ContentHeader from './components/ContentHeader';
 import NextLink from 'next/link';
+import { title } from 'process';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -76,7 +76,6 @@ const Highlight = ({ children }:
     {children}
   </Typography>
 );
-
 
 export default function Page() {
   return (
@@ -167,7 +166,7 @@ export default function Page() {
                 </Box>
                 <Typography variant='h6' noWrap sx={{ whiteSpace: 'normal', color: 'text.secondary', mt: 2, display: { xs: "none", md: "block" } }}>
                   Want to know more? My resume covers <br />
-                  my work experience  and time in grad school.
+                  my work experience and time in grad school.
                 </Typography>
 
                 <Box sx={{
@@ -191,6 +190,7 @@ export default function Page() {
                       mr: { xs: "15px", md: 0 }
                     }}>
                     Resume
+                    {/* <DownloadIcon sx={{ ml: 1 }} /> */}
                   </Button>
 
                   <SocialLinks />
@@ -219,14 +219,22 @@ export default function Page() {
               </Typography>
               <ContentHeader>Projects</ContentHeader>
               <ContentList projects={[
-                {
-                  title: 'Jeopardy Simulator',
-                  description: `An interactive Jeopardy! web app built with React, Next.js, and 
-                    Material UI. It leverages jeopardy-json
-                    to pull real categories, clues, and answers for an authentic game-show experience.`,
-                  thumbnail: '/images/jeopardy2.png',
-                  href: "/jeopardy"
-                },
+              {
+                title: 'Sparky',
+                description: `A React web app for electrical contractors. Features Google Maps integration with polyline drawing for distance measurements and shareable calculations.
+                Iplemented with React Router, Tailwind and the Google Maps API.`,
+                thumbnail: '/images/sparky.gif',
+                href: "https://candiansparky.netlify.app/",
+                imageStyle: { backgroundPositionY: "-5px" }
+              },
+              {
+                title: 'Jeopardy Simulator',
+                description: `An interactive Jeopardy! web app built with React, Next.js, and 
+                  Material UI. It leverages jeopardy-json
+                  to pull real categories, clues, and answers for an authentic game-show experience.`,
+                thumbnail: '/images/jeopardy2.png',
+                href: "/jeopardy"
+              },
                 {
                   title: 'jeopardy-json',
                   description: `A lightweight Node.js package that fetches and converts Jeopardy! games from the J! Archive into structured, readable JSON`,
@@ -240,12 +248,14 @@ export default function Page() {
                   thumbnail: '/images/example.gif',
                   href: "https://github.com/jelenis/login-manager"
                 },
+                
               ]}></ContentList>
               <ContentHeader>Capstone 2019</ContentHeader>
               <ContentList projects={[
                 {
                   title: 'Low Power Keyword Spotting',
-                  description: 'Personal site built with Next.js & Material UI to showcase projects and blog posts.',
+                  description: `Capstone engineering project focused on developing energy-efficient keyword detection algorithms for embedded systems.
+                  Published in IEEE Xplore.`,
                   thumbnail: '/images/lpk.gif',
                   href: "https://ieeexplore.ieee.org/document/9255693"
                 },

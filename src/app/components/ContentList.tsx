@@ -8,7 +8,9 @@ interface Project {
   thumbnail: string;
   title: string;
   description: string;
+
   href?: string;
+  imageStyle?: React.CSSProperties;
 }
 
 interface ContentListProps {
@@ -31,8 +33,8 @@ export default function ContentList({ projects }: ContentListProps) {
         display: "flex",
         alignContent: "center",
         justifyContent: "center"}}>
+
         <Card sx={{
-          
           maxWidth: { xs: "80%", md: "95%" },
           transition: 'box-shadow 0.2s ease-in-out',
           boxShadow: '0',        // disable box-shadow normally
@@ -44,7 +46,7 @@ export default function ContentList({ projects }: ContentListProps) {
         }}>
           <CardActionArea component="a" href={p.href} >
             <CardMedia
-              sx={{ height: 140 }}
+              sx={{ height: 140, ...p.imageStyle }}
               image={p.thumbnail}
               title=""
             />
