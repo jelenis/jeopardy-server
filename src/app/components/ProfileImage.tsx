@@ -16,6 +16,9 @@ export default function ProfileImage() {
         alt="Profile"
         width={width}
         height={height}
+        
+        
+        
         style={{
           objectFit: 'cover',
           clipPath: 'circle(50% at 50% 50%)',

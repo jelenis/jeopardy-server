@@ -1,8 +1,9 @@
 'use client';
 import React from 'react';
-import { Container, Box, Typography, Button } from '@mui/material';
+import { Container, Box } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AnimatedWaves from './components/AnimatedWaves';
+import { NoSsr } from '@mui/material';
 
 import { Poppins, Montserrat, Lobster, Urbanist } from 'next/font/google'
 import SocialLinks from './components/SocialLinks';
@@ -75,7 +76,9 @@ export default function Page() {
       <Container className={`${poppins.variable} ${montserrat.variable} ${knewave.variable} ${lobster.variable}`} >
         <ThemeProvider theme={theme}>
 
-          <Box sx={{
+          <Box 
+            suppressHydrationWarning
+            sx={{
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', sm: 'auto 1fr' },
             columnGap: '5rem',
