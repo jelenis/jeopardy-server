@@ -77,7 +77,8 @@ export default function Page() {
 
           <Box sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+            gridTemplateColumns: { xs: '1fr', sm: 'auto 1fr' },
+            columnGap: '5rem',
             gridTemplateRows: 'auto',
             justifyItems: 'center',
             alignItems: 'start',
@@ -92,6 +93,7 @@ export default function Page() {
                 alignItems: 'center',
                 width: '100%',
                 mb: '0.25rem',
+                mr: { xs: 0, md: 4 }
               }}>
                 <ProfileImage />
      
