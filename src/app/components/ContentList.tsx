@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { Box, CardMedia, Card, CardContent, Typography,  CardActionArea,  } from '@mui/material';
-import NextLink from 'next/link';
-
+import Markdown from 'react-markdown'
 
 interface Project {
   thumbnail: string;
@@ -54,8 +53,8 @@ export default function ContentList({ projects }: ContentListProps) {
               <Typography gutterBottom variant="h5" component="div">
                 {p.title}
               </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {p.description}
+              <Typography variant="body2" component="div" sx={{ color: 'text.secondary' }}>
+                <Markdown >{p.description}</Markdown>
               </Typography>
             </CardContent>
           </CardActionArea>

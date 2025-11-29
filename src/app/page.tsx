@@ -1,16 +1,13 @@
 'use client';
-import React, { useEffect, useState } from 'react';
-import { Container, Box, Typography, Button, Link } from '@mui/material';
+import React from 'react';
+import { Container, Box, Typography, Button } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AnimatedWaves from './components/AnimatedWaves';
 
 import { Poppins, Montserrat, Lobster, Urbanist } from 'next/font/google'
 import SocialLinks from './components/SocialLinks';
 import ProfileImage from './components/ProfileImage';
-import ContentList from './components/ContentList';
-import ContentHeader from './components/ContentHeader';
-import NextLink from 'next/link';
-import { title } from 'process';
+import ProjectSection from './components/ProjectSection';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -67,15 +64,6 @@ const theme = createTheme({
     h6: { fontSize: "1.1rem", fontFamily: 'var(--font-montserrat)' }
   },
 })
-
-
-// Highlight component for emphasizing text with primary color and bold font
-const Highlight = ({ children }:
-  { children: React.ReactNode }) => (
-  <Typography sx={{ color: "primary.main", fontWeight: 600 }} component="span">
-    {children}
-  </Typography>
-);
 
 export default function Page() {
   return (
@@ -204,62 +192,7 @@ export default function Page() {
               flexDirection: 'column',
               width: { xs: "100%", md: "50%" }
             }}>
-              {/* <ContentHeader>About</ContentHeader> */}
-              <ContentHeader >About Me</ContentHeader>
-              <Typography sx={{ color: "text.secondary", mb: 2, fontWeight: 100 }}>
-                I’m a Systems Engineering
-                graduate with hands‑on experience in both <Highlight>full-stack development </Highlight>
-                and <Highlight >embedded systems</Highlight>.
-                After stepping away for a bit, I’m now eager to jump back into the tech world and put my skills to work.
-              </Typography>
-              <Typography sx={{ color: "text.secondary", mb: 3, fontWeight: 100 }}>
-                Check out some of my personal projects below. You can also find more on my {' '}
-                <Link component={NextLink} href="https://github.com/jelenis">GitHub</Link>
-                {' '}or connect with me on <Link component={NextLink} href="https://www.linkedin.com/in/john-anthony-elenis"> LinkedIn</Link>!
-              </Typography>
-              <ContentHeader>Projects</ContentHeader>
-              <ContentList projects={[
-              {
-                title: 'Sparky',
-                description: `A React web app for electrical contractors. Features Google Maps integration with polyline drawing for distance measurements and shareable calculations.
-                Iplemented with React Router, Tailwind and the Google Maps API.`,
-                thumbnail: '/images/sparky.gif',
-                href: "https://candiansparky.netlify.app/",
-                imageStyle: { backgroundPositionY: "-5px" }
-              },
-              {
-                title: 'Jeopardy Simulator',
-                description: `An interactive Jeopardy! web app built with React, Next.js, and 
-                  Material UI. It leverages jeopardy-json
-                  to pull real categories, clues, and answers for an authentic game-show experience.`,
-                thumbnail: '/images/jeopardy2.png',
-                href: "/jeopardy"
-              },
-                {
-                  title: 'jeopardy-json',
-                  description: `A lightweight Node.js package that fetches and converts Jeopardy! games from the J! Archive into structured, readable JSON`,
-                  thumbnail: '/images/jeopardy-json.png',
-                  href: "https://github.com/jelenis/jeopardy-json/tree/main"
-                },
-                {
-                  title: 'login-manager',
-                  description: `Easily design your own Linux greeter without having to worry about the implementation.
-                                  An event based interface for creating fully customizable Linux login themes using Lightdm's Webkit2 Greeter.`,
-                  thumbnail: '/images/example.gif',
-                  href: "https://github.com/jelenis/login-manager"
-                },
-                
-              ]}></ContentList>
-              <ContentHeader>Capstone 2019</ContentHeader>
-              <ContentList projects={[
-                {
-                  title: 'Low Power Keyword Spotting',
-                  description: `Capstone engineering project focused on developing energy-efficient keyword detection algorithms for embedded systems.
-                  Published in IEEE Xplore.`,
-                  thumbnail: '/images/lpk.gif',
-                  href: "https://ieeexplore.ieee.org/document/9255693"
-                },
-              ]}></ContentList>
+              <ProjectSection/>
             </Box>
           </Box>
         </ThemeProvider>
