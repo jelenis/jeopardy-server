@@ -80,7 +80,7 @@ export default function Page() {
             suppressHydrationWarning
             sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: 'auto 1fr' },
+            gridTemplateColumns: { xs: '1fr',  md: 'auto 1fr' },
             columnGap: '5rem',
             gridTemplateRows: 'auto',
             justifyItems: 'center',
@@ -107,7 +107,7 @@ export default function Page() {
 
             {/* Projects column */}
             <Box sx={{
-              gridColumn: { xs: '1', sm: '2' },
+              gridColumn: { xs: '1', md: '2' },
               display: 'flex',
               flexDirection: 'column',
             }}>
