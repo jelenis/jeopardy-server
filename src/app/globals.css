@@ -68,11 +68,11 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.2) 30%,
-    rgba(255, 255, 255, 0.2) 70%,
+    rgba(100, 255, 255, 0.2) 30%,
+    rgba(100, 255, 255, 0.2) 70%,
     transparent 100%
   );
-  animation: shimmer 3s ease-in-out infinite;
+  animation: shimmer 5s ease-in-out infinite, 0.7s;
 }
 
 @keyframes shimmer {
@@ -96,56 +96,66 @@ body {
 @keyframes revealCircle {
   0% {
     clip-path: circle(30% at 50% 50%);
+    scale: 1;
+  }
+  90% {
+    clip-path: circle(50% at 50% 50%);
+    scale: 1.01;
   }
   100% {
+    scale: 1;
     clip-path: circle(50% at 50% 50%);
   }
 }
 
-/* Ripple/Ping Overlay Effect */
-.animate-ripple {
-  position: relative;
-  overflow: hidden;
+/* Ripple Elements */
+.ripple {
+  position: absolute;
+  top: 105%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 255, 255, 0.4);
+  transform: scale(0);
+  transform-origin: top 105% left 50%;
+  animation: ripple 2.4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
 }
 
-.animate-ripple::before {
-  content: '';
+.ripple-2 {
   position: absolute;
-  top: 100%;
-  left: 100%;
-  width: 0;
-  height: 0;
+  top: 105%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
-  transform: translate(-50%, -50%);
-  animation: ripple 4s ease-out infinite;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  transform-origin: top 105% left 50%;
+  animation: ripple 2.4s ease-in-out infinite, 1.5s;
+  pointer-events: none;
+  z-index: -1;
 }
 
 @keyframes ripple {
   0% {
-    width: 0;
-    height: 0;
-    opacity: 0.15;
-  }
-  100% {
-    width: 500%;
-    height: 500%;
-    left: -100%;
+    transform: scale(0);
     opacity: 0;
   }
-
-}
-
-/* Pulse Animation (alternative softer version) */
-.animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
+  1% {
+    opacity: 0.2;
   }
-  50% {
-    opacity: 0.8;
+  90% {
+    opacity: 0;
+  }
+  100% {
+    transform: scale(33);
+    opacity: 0;
   }
 }
+
+
+
+

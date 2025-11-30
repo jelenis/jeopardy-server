@@ -7,12 +7,14 @@ export default function ProfileImage() {
   
   return (
     <div 
-      className="gradient-blue-teal  circle-reveal animate-shimmer circle reveal-circle animate-ripple"
+      className="gradient-blue-teal  circle-reveal animate-shimmer circle"
       style={{ 
         width: width, 
         height: height,
       }}
     >
+        <div className="ripple"></div>
+        <div className="ripple-2"></div>
       <Image
         src="/images/me2.png"
         alt="Profile"
