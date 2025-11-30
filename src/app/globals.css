@@ -38,3 +38,114 @@ body {
     #f7f7f7 100%
   );
 }
+
+/* ======================
+   Utility Classes
+   ====================== */
+
+/* Gradient Utilities */
+.gradient-blue-teal {
+  background: linear-gradient(135deg, rgba(119, 203, 224, 1) 0%, rgba(94, 199, 234, 1) 50%, rgb(91, 255, 234) 100%);
+}
+
+.gradient-shimmer {
+  background: linear-gradient(135deg, #219ebc 0%, #8ecae6 50%, #5bffea 100%);
+}
+
+/* Animation Utilities */
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: calc(100% + 100px);
+  height: calc(100% + 100px);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0.2) 70%,
+    transparent 100%
+  );
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Circle Utilities */
+.circle {
+  clip-path: circle(50% at 50% 50%);
+}
+
+.circle-reveal {
+  animation: revealCircle 0.2s ease-out forwards;
+}
+
+@keyframes revealCircle {
+  0% {
+    clip-path: circle(30% at 50% 50%);
+  }
+  100% {
+    clip-path: circle(50% at 50% 50%);
+  }
+}
+
+/* Ripple/Ping Overlay Effect */
+.animate-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-ripple::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: translate(-50%, -50%);
+  animation: ripple 4s ease-out infinite;
+}
+
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.15;
+  }
+  100% {
+    width: 500%;
+    height: 500%;
+    left: -100%;
+    opacity: 0;
+  }
+
+}
+
+/* Pulse Animation (alternative softer version) */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}

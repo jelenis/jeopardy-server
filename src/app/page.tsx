@@ -99,11 +99,10 @@ export default function Page() {
                 mr: { xs: 0, md: 4 }
               }}>
                 <ProfileImage />
-     
               </Box>
+
             {/* Intro Description */}
             <IntroSection />
-
 
             {/* Projects column */}
             <Box sx={{
@@ -113,10 +112,6 @@ export default function Page() {
             }}>
               <ProjectSection />
             </Box>
-
-
-           
-
           </Box>
         </ThemeProvider>
       </Container>

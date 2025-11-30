@@ -77,7 +77,7 @@ export default function IntroSection() {
               borderRadius: '32px 32px',
               fontSize: '1rem',
               fontFamily: 'var(--font-montserrat)',
-              fontWeight: 400,
+              fontWeight: 600,
               mr: { xs: "15px", md: 0 }
             }}>
             Resume
