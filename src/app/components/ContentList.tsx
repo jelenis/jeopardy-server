@@ -34,7 +34,7 @@ export default function ContentList({ projects }: ContentListProps) {
         justifyContent: "center"}}>
 
         <Card sx={{
-          maxWidth: { xs: "80%", md: "95%" },
+          maxWidth: {xs:'min(80%, 700px)', lg: 'unset'},
           transition: 'box-shadow 0.2s ease-in-out',
           boxShadow: '0',        // disable box-shadow normally
           '&:hover': {

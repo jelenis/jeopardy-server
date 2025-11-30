@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import { Container, Box } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -75,12 +76,11 @@ export default function Page() {
 
       <Container className={`${poppins.variable} ${montserrat.variable} ${knewave.variable} ${lobster.variable}`} >
         <ThemeProvider theme={theme}>
-
           <Box 
             suppressHydrationWarning
             sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr',  md: 'auto 1fr' },
+            gridTemplateColumns: { xs: '1fr',  lg: 'auto 1fr' },
             columnGap: '5rem',
             gridTemplateRows: 'auto',
             justifyItems: 'center',
@@ -107,7 +107,7 @@ export default function Page() {
 
             {/* Projects column */}
             <Box sx={{
-              gridColumn: { xs: '1', md: '2' },
+              gridColumn: { xs: '1', lg: '2' },
               display: 'flex',
               flexDirection: 'column',
             }}>

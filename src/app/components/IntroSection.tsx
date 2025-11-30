@@ -6,7 +6,7 @@ export default function IntroSection() {
   return (
     <Box
       sx={{
-        position: { xs: 'static', md: 'sticky' },
+        position: { md: 'static', lg: 'sticky' },
         top: "2.5rem",
         flex: '0 0 auto',
         overflowY: 'auto',
