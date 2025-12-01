@@ -1,13 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { Container, Box } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AnimatedWaves from './components/AnimatedWaves';
-import { NoSsr } from '@mui/material';
 
 import { Poppins, Montserrat, Lobster, Urbanist } from 'next/font/google'
-import SocialLinks from './components/SocialLinks';
 import ProfileImage from './components/ProfileImage';
 import ProjectSection from './components/ProjectSection';
 import IntroSection from './components/IntroSection';
@@ -69,14 +67,12 @@ const theme = createTheme({
 })
 
 export default function Page() {
-    
 
     // Handle scroll-based hue shift for color-shifting text
     // Sets CSS variable --hue-shift based on scroll position
-    // 
     useEffect(() => {
       const scrollHandler = () => {
-        const maxColorShift = 180; // limit the number of colours
+        const maxColorShift = 90; // (degrees) limit the number of colours
         // Calculate scroll position as a fraction of total scrollable height
         const shift = document.documentElement.scrollTop / 
           (document.documentElement.scrollHeight - window.innerHeight) * maxColorShift;
@@ -88,6 +84,10 @@ export default function Page() {
       
       return () => document.removeEventListener('scroll', scrollHandler);
     }, []);
+
+    
+
+
   
 
   return (

@@ -5,6 +5,9 @@
 :root {
   /* Dynamic hue shift for color animations */
   --hue-shift: 0deg;
+  /* Ripple animation behind profile image duration */
+  --ripple-delay: 1s;
+  --ripple-duration: 2s;
 }
 
 /* Reset and base body styles */
@@ -123,15 +126,15 @@ body {
 /* Primary ripple effect - USED IN: ProfileImage component */
 .ripple {
   position: absolute;
-  top: 105%;
-  left: 50%;
-  width: 10px;
-  height: 10px;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background: rgba(0, 255, 255, 0.4);
+  background: rgba(0, 255, 255, 0.5);
   transform: scale(0);
-  transform-origin: top 105% left 50%;
-  animation: ripple 5s ease-in-out infinite;
+  transform-origin: top 100% left 50%; 
+  animation: ripple var(--ripple-duration) ease-in-out forwards var(--ripple-delay);
   pointer-events: none;
   z-index: -1;
 }
@@ -139,71 +142,32 @@ body {
 /* Secondary ripple with delay - USED IN: ProfileImage component */
 .ripple-2 {
   position: absolute;
-  top: 105%;
-  left: 50%;
-  width: 10px;
-  height: 10px;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.4);
-  transform: scale(0);
-  transform-origin: top 105% left 50%;
-  animation: ripple 5s ease-in-out infinite 0.1s;
+  transform: scale(0.1);
+  transform-origin: top 100% left 50%;
+  animation: ripple var(--ripple-duration) ease-in-out forwards calc(var(--ripple-delay) + 0.1s);
   pointer-events: none;
   z-index: -1;
 }
 
 @keyframes ripple {
   0% {
-    transform: scale(0);
+    transform: scale(0.1);
     opacity: 0;
   }
   1% {
     opacity: 0.8;
   }
   90% {
-    opacity: 0;
+    opacity: 0.2;
   }
   100% {
-    transform: scale(50);
+    transform: scale(1.3);
     opacity: 0;
-  }
-}
-
-/* ==============================================
-   EXPERIMENTAL/UNUSED EFFECTS
-   ============================================== */
-
-/* Sliding gradient effect - UNUSED (experimental) */
-.ripple-3 {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  border-radius: 0%;
-  background: linear-gradient(
-    60deg,
-    transparent 0%,
-    rgba(100, 255, 255, 0.8) 36%,
-    rgba(100, 255, 255, 0.5) 70%,
-    transparent 100%
-  );
-  transform: translateX(-30%);
-  animation: ripple3 3s ease-in-out infinite 1s;
-  pointer-events: none;
-  z-index: 1;
-}
-
-@keyframes ripple3 {
-  0% {
-    opacity: 0;
-    transform: translateX(0%);
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(24%);
   }
 }
