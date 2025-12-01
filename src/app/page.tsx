@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Box } from '@mui/material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AnimatedWaves from './components/AnimatedWaves';
@@ -69,6 +69,27 @@ const theme = createTheme({
 })
 
 export default function Page() {
+    
+
+    // Handle scroll-based hue shift for color-shifting text
+    // Sets CSS variable --hue-shift based on scroll position
+    // 
+    useEffect(() => {
+      const scrollHandler = () => {
+        const maxColorShift = 180; // limit the number of colours
+        // Calculate scroll position as a fraction of total scrollable height
+        const shift = document.documentElement.scrollTop / 
+          (document.documentElement.scrollHeight - window.innerHeight) * maxColorShift;
+
+        // update CSS variable
+        document.documentElement.style.setProperty('--hue-shift', `${shift}deg`);
+      }
+      document.addEventListener('scroll', scrollHandler);
+      
+      return () => document.removeEventListener('scroll', scrollHandler);
+    }, []);
+  
+
   return (
     <div>
 
@@ -99,7 +120,7 @@ export default function Page() {
                 mr: { xs: 0, md: 4 }
               }}>
                 <ProfileImage />
-              </Box>
+               </Box>
 
             {/* Intro Description */}
             <IntroSection />

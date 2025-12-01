@@ -1,58 +1,65 @@
+/* ==============================================
+   GLOBAL STYLES & CSS VARIABLES
+   ============================================== */
 
+:root {
+  /* Dynamic hue shift for color animations */
+  --hue-shift: 0deg;
+}
+
+/* Reset and base body styles */
 body {
   margin: 0;
   padding: 0;
-  
+  background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
 }
 
+/* ==============================================
+   TEXT UTILITIES
+   ============================================== */
 
-
-body {
-  /* fallback if gradients aren’t supported */
-  /* background-color: #f9f9f9; */
-
-  /* very light gray → slightly darker gray */
-  /* background-image: linear-gradient(
-    135deg,
-    #ececec 0%,
-    #ffffff 100%
-  ); */
-}
+/* Text with gradient clipping - used for main title */
 .gradient-text {
-  /* same off‑white → light‑gray diagonal gradient */
-background: linear-gradient(34deg, #219ebc 0%, #25b6d9 100%);
-  
-  /* clip the background to the text */
+  background: linear-gradient(34deg, #219ebc 0%, #25b6d9 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  
-  /* make the actual fill transparent */
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
 
-body {
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #f7f7f7 100%
-  );
-}
+/* ==============================================
+   GRADIENT UTILITIES
+   ============================================== */
 
-/* ======================
-   Utility Classes
-   ====================== */
-
-/* Gradient Utilities */
+/* Blue-teal gradient background - USED IN: ProfileImage component */
 .gradient-blue-teal {
   background: linear-gradient(135deg, rgba(119, 203, 224, 1) 0%, rgba(94, 199, 234, 1) 50%, rgb(91, 255, 234) 100%);
 }
 
+/* Alternative shimmer gradient - UNUSED */
 .gradient-shimmer {
   background: linear-gradient(135deg, #219ebc 0%, #8ecae6 50%, #5bffea 100%);
 }
 
-/* Animation Utilities */
+/* ==============================================
+   DYNAMIC COLOR UTILITIES
+   ============================================== */
+
+/* Dynamic color shifting gradient - USED IN: IntroSection Button */
+.color-shift-blue {
+  background: linear-gradient(
+    88deg,
+    oklch(0.6484 0.1101 calc(219deg + var(--hue-shift))) 0%,
+    oklch(0.7142 0.1279 calc(221.32deg + var(--hue-shift))) 90%
+  );
+}
+
+
+/* ==============================================
+   ANIMATION UTILITIES
+   ============================================== */
+
+/* Shimmer effect with moving highlight - USED IN: ProfileImage component */
 .animate-shimmer {
   position: relative;
   overflow: hidden;
@@ -72,23 +79,24 @@ body {
     rgba(100, 255, 255, 0.2) 70%,
     transparent 100%
   );
-  animation: shimmer 5s ease-in-out infinite, 0.7s;
+  animation: shimmer 5s ease-in-out infinite;
 }
 
 @keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
-/* Circle Utilities */
+/* ==============================================
+   SHAPE UTILITIES
+   ============================================== */
+
+/* Circular clipping - USED IN: ProfileImage component */
 .circle {
   clip-path: circle(50% at 50% 50%);
 }
 
+/* Circle reveal animation - USED IN: ProfileImage component */
 .circle-reveal {
   animation: revealCircle 0.2s ease-out forwards;
 }
@@ -108,7 +116,11 @@ body {
   }
 }
 
-/* Ripple Elements */
+/* ==============================================
+   RIPPLE/PING EFFECTS
+   ============================================== */
+
+/* Primary ripple effect - USED IN: ProfileImage component */
 .ripple {
   position: absolute;
   top: 105%;
@@ -124,6 +136,7 @@ body {
   z-index: -1;
 }
 
+/* Secondary ripple with delay - USED IN: ProfileImage component */
 .ripple-2 {
   position: absolute;
   top: 105%;
@@ -156,6 +169,41 @@ body {
   }
 }
 
+/* ==============================================
+   EXPERIMENTAL/UNUSED EFFECTS
+   ============================================== */
 
+/* Sliding gradient effect - UNUSED (experimental) */
+.ripple-3 {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  border-radius: 0%;
+  background: linear-gradient(
+    60deg,
+    transparent 0%,
+    rgba(100, 255, 255, 0.8) 36%,
+    rgba(100, 255, 255, 0.5) 70%,
+    transparent 100%
+  );
+  transform: translateX(-30%);
+  animation: ripple3 3s ease-in-out infinite 1s;
+  pointer-events: none;
+  z-index: 1;
+}
 
-
+@keyframes ripple3 {
+  0% {
+    opacity: 0;
+    transform: translateX(0%);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(24%);
+  }
+}

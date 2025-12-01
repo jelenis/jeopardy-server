@@ -1,8 +1,9 @@
-import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import SocialLinks from './SocialLinks';
 
 export default function IntroSection() {
+
+
   return (
     <Box
       sx={{
@@ -24,7 +25,10 @@ export default function IntroSection() {
         }}
       >
         <Box>
-          <Typography variant="h3" noWrap fontWeight={100} sx={{
+          <Typography variant="h3" noWrap fontWeight={100} 
+          
+          className='color-shift-blue'
+          sx={{
             fontFamily: "var(--font-knewave)",
             color: 'primary.main',
             fontSize: { xs: '4rem', sm: '5rem' },
@@ -32,7 +36,7 @@ export default function IntroSection() {
             fontWeight: "700",
             letterSpacing: "-0.17rem",
             lineHeight: { xs: '3.8rem', sm: '4.8rem' },
-            backgroundImage: 'url("/gradient.svg")',
+           
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             WebkitBackgroundClip: 'text',
@@ -72,9 +76,13 @@ export default function IntroSection() {
             href="/resume.pdf"
             download="John_Elenis_Resume.pdf"
             variant='contained'
+            className="color-shift-blue"
             sx={{
-              bgcolor: 'primary.main',
+              position: 'relative',
+              p: '0.6rem 1.8rem',
+              zIndex: 0,
               borderRadius: '32px 32px',
+              boxShadow: 'none',
               fontSize: '1rem',
               fontFamily: 'var(--font-montserrat)',
               fontWeight: 600,
