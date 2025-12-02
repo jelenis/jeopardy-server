@@ -35,16 +35,24 @@ export default function ({ label }: { label: string }) {
 
     return <Chip
         className="color-shift-chip"
+       
         label={
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                 {icon}
-                {label}
+                <Box 
+                    component="span" 
+                    sx={{ display: { xs: 'none', md: 'flex' } }}
+                >
+                    {label}
+                </Box>
             </Box>
         }
         variant="outlined"
         sx={{
-            px: '1rem',
-            py: '1rem'
+            display: {xs: icon ? "flex" : "none" , md: 'flex' },
+            px: {xs: '0.2em'},
+            py: {xs: '0.1em'},
+            fontSize: { xs: '0.8em' },
         }}
     />;
 

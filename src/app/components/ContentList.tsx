@@ -64,7 +64,7 @@ function ProjectCard({ project }: { project: Project }) {
 
             {/* Render chips with CSS bullet delimiters */}
             {project.chips && (
-              <Stack className="chip-list" direction="row" gap={'1rem'} flexWrap="wrap" sx={{ mt: 3 }}>
+              <Stack className="chip-list" direction="row" gap={'1rem'} flexWrap="nowrap" sx={{ mt: 3 }}>
                 {project.chips.map((chip) => (
                   <ColoredChip key={chip} label={chip} />
                 ))}
