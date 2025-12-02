@@ -72,7 +72,7 @@ export default function Page() {
     // Sets CSS variable --hue-shift based on scroll position
     useEffect(() => {
       const scrollHandler = () => {
-        const maxColorShift = 40; // (degrees) limit the number of colours
+        const maxColorShift = 55; // (degrees) limit the number of colours
         // Calculate scroll position as a fraction of total scrollable height
         const shift = document.documentElement.scrollTop / 
           (document.documentElement.scrollHeight - window.innerHeight) * maxColorShift;
