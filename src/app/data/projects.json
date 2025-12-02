@@ -2,26 +2,30 @@
   "projects": [
     {
       "title": "Sparky",
-      "description": "A **React** web app for electrical contractors. Features **Google Maps** integration with polyline drawing for distance measurements and shareable calculations.\n\n**Tech Stack:** `React Router` • `Tailwind CSS` • `Google Maps API`",
+      "description": "A **React** web app for electrical contractors. Features **Google Maps** integration with polyline drawing for distance measurements and shareable calculations.",
+      "chips": ["React", "Tailwind", "TypeScript"],
       "thumbnail": "/images/sparky.webp",
       "href": "https://candiansparky.netlify.app/",
       "imageStyle": { "backgroundPositionY": "-5px" }
     },
     {
       "title": "Jeopardy Simulator",
-      "description": "An interactive **Jeopardy!** web app that brings the classic game show to your browser. Leverages my own `jeopardy-json` package for authentic game data.\n\n**Tech Stack:** `React` • `Next.js` • `Material UI` • `TypeScript`",
+      "description": "An interactive **Jeopardy!** web app that brings the classic game show to your browser. Leverages my own `jeopardy-json` package for authentic game data.",
+      "chips": ["React", "Next.js", "Material UI", "TypeScript"],
       "thumbnail": "/images/jeopardy2.webp",
       "href": "/jeopardy"
     },
     {
       "title": "jeopardy-json",
-      "description": "A lightweight **Node.js** package that fetches and converts Jeopardy! games from the **J! Archive** into structured, readable JSON.\n\n**Tech Stack:** `Node.js` • `Cheerio` • `Axios` • `JavaScript`",
+      "description": "A lightweight **Node.js** package that fetches and converts Jeopardy! games from the **J! Archive** into structured, readable JSON.",
+      "chips": ["Node.js", "Cheerio", "Axios", "JavaScript"],
       "thumbnail": "/images/jeopardy-json.webp",
       "href": "https://github.com/jelenis/jeopardy-json/tree/main"
     },
     {
       "title": "login-manager",
-      "description": "Create beautiful, **custom Linux login screens** without the complexity. An event-based interface for designing fully customizable themes.\n\n**Tech Stack:** `JavaScript` • `HTML/CSS` • `Lightdm` • `Webkit2`",
+      "description": "Create beautiful, **custom Linux login screens** without the complexity. An event-based interface for designing fully customizable themes.",
+      "chips": ["JavaScript", "Linux", "Webkit2"],
       "thumbnail": "/images/example.webp",
       "href": "https://github.com/jelenis/login-manager"
     }
@@ -29,7 +33,8 @@
   "capstone": [
     {
       "title": "Low Power Keyword Spotting",
-      "description": "**Research project** developing energy-efficient keyword detection algorithms for embedded systems. Published in **IEEE Xplore**.\n\n**Tech Stack:** `TensorFlow` • `Python` • `Embedded C` • `Signal Processing`",
+      "description": "**Research project** developing energy-efficient keyword detection algorithms for embedded systems. Published in **IEEE Xplore**.",
+      "chips": ["Python", "C", "Signal Processing"],
       "thumbnail": "/images/lpk.webp",
       "href": "https://ieeexplore.ieee.org/document/9255693"
     }

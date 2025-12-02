@@ -12,9 +12,15 @@
 
 /* Reset and base body styles */
 body {
+
   margin: 0;
   padding: 0;
   background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
+  /* background: radial-gradient(
+    farthest-corner circle at 47% 46% in oklch,
+    oklch(100% 0.01 219) 100%,
+    oklch(75% 0.50 219)
+  ); */
 }
 
 /* ==============================================
@@ -29,6 +35,9 @@ body {
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+.color-shift-chip:not(:last-child) {
+  content: " • ";
+}
 
 /* ==============================================
    GRADIENT UTILITIES
@@ -39,10 +48,6 @@ body {
   background: linear-gradient(135deg, rgba(119, 203, 224, 1) 0%, rgba(94, 199, 234, 1) 50%, rgb(91, 255, 234) 100%);
 }
 
-/* Alternative shimmer gradient - UNUSED */
-.gradient-shimmer {
-  background: linear-gradient(135deg, #219ebc 0%, #8ecae6 50%, #5bffea 100%);
-}
 
 /* ==============================================
    DYNAMIC COLOR UTILITIES
@@ -56,6 +61,33 @@ body {
     oklch(0.7142 0.1279 calc(221.32deg + var(--hue-shift))) 90%
   );
 }
+
+/* Dynamic color shifting for chips - USED IN: ColoredChip component */
+.color-shift-chip {
+  border-radius: 0.4rem !important;
+  color: oklch(0.6484 0.1101 calc(219deg + var(--hue-shift))) !important;
+  border-color: oklch(0.6484 0.1101 calc(219deg + var(--hue-shift)) / 0.2) !important;
+  /* border-color: transparent !important; */
+  background-color: oklch(0.90 0.1101 calc(219deg + var(--hue-shift)) / 0.05) !important;
+}
+
+/* Chip container with CSS bullet delimiters */
+/* .chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0;
+} */
+
+/* .color-shift-chip:not(:last-child)::after {
+  content: "•";
+  margin-left: 12px;
+  margin-right: 12px;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 1.2rem;
+  line-height: 1;
+  user-select: none;
+} */
 
 
 /* ==============================================
@@ -157,14 +189,14 @@ body {
 
 @keyframes ripple {
   0% {
-    transform: scale(0.1);
+    transform: scale(0);
     opacity: 0;
   }
   1% {
     opacity: 0.8;
   }
-  90% {
-    opacity: 0.2;
+  95% {
+    opacity: 0;
   }
   100% {
     transform: scale(1.3);
