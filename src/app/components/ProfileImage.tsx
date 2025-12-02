@@ -6,7 +6,7 @@ export default function ProfileImage() {
   const width = 150;
   const height = width;
   const [rippleKey, setRippleKey] = React.useState(0);
-
+  const [showRipple, setShowRipple] = React.useState(false);
   const triggerRipple = React.useCallback(() => {
     // Set random delay
     const randomDelay = Math.random() * 2;
@@ -18,9 +18,15 @@ export default function ProfileImage() {
 
   useRandomInterval({
     callback: triggerRipple,
-    minDelay: 2,  // 2 seconds minimum
-    maxDelay: 5   // 5 seconds maximum  
+    minDelay: 2,
+    maxDelay: 5,
   });
+
+  // Show ripples after a short delay instead of waiting for image load
+  React.useEffect(() => {
+    const timer = setTimeout(() => setShowRipple(true), 300);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div 
       className="gradient-blue-teal  circle-reveal animate-shimmer circle"
@@ -31,19 +37,26 @@ export default function ProfileImage() {
     >
    
       
-      <div key={rippleKey} className="ripple"></div>
-      <div key={rippleKey + 0.1} className="ripple-2"></div>
+      {showRipple && (
+        <>
+          <div key={rippleKey} className="ripple"></div>
+          <div key={rippleKey + 0.1} className="ripple-2"></div>
+        </>
+      )}
   
-    
       <Image
-        src="/images/me2.png"
+        src="/images/me2.webp"
         alt="Profile"
         width={width}
         height={height}
+        priority
         style={{
           objectFit: 'cover',
         }}
         className="circle"
+        onLoad={() => {
+          setShowRipple(true);
+        }}
       />
     </div>
   );
